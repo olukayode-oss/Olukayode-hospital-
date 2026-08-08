@@ -3,23 +3,264 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Olukayode Hospital</title>
+
+  <title>Olukayode Hospital | Convalescence Home</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      color: #1f2937;
+      background: #f7faf9;
+    }
+
+    header {
+      background: #ffffff;
+      padding: 20px;
+      text-align: center;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .logo {
+      font-size: 26px;
+      font-weight: 700;
+      color: #176b5b;
+    }
+
+    .tagline {
+      margin-top: 4px;
+      color: #64748b;
+      font-size: 14px;
+    }
+
+    .hero {
+      padding: 70px 20px;
+      text-align: center;
+      background: #eaf6f2;
+    }
+
+    .hero h1 {
+      font-size: 38px;
+      margin-bottom: 12px;
+      color: #124f44;
+    }
+
+    .hero p {
+      max-width: 600px;
+      margin: 0 auto 25px;
+      color: #52606d;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 13px 22px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .primary {
+      background: #176b5b;
+      color: white;
+    }
+
+    .secondary {
+      background: white;
+      color: #176b5b;
+      border: 1px solid #176b5b;
+    }
+
+    section {
+      max-width: 1000px;
+      margin: auto;
+      padding: 55px 20px;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #124f44;
+      font-size: 28px;
+    }
+
+    .about {
+      text-align: center;
+      max-width: 750px;
+      margin: auto;
+      color: #52606d;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      border: 1px solid #e5e7eb;
+    }
+
+    .card h3 {
+      color: #176b5b;
+      margin-bottom: 8px;
+    }
+
+    .card p {
+      color: #64748b;
+    }
+
+    .contact {
+      background: #124f44;
+      color: white;
+      max-width: none;
+      text-align: center;
+    }
+
+    .contact h2 {
+      margin-bottom: 20px;
+    }
+
+    .contact p {
+      margin: 8px 0;
+    }
+
+    .contact a {
+      color: white;
+    }
+
+    footer {
+      background: #0d3830;
+      color: #dbe7e4;
+      text-align: center;
+      padding: 20px;
+      font-size: 14px;
+    }
+
+    @media (max-width: 600px) {
+      .hero h1 {
+        font-size: 30px;
+      }
+
+      section {
+        padding: 45px 18px;
+      }
+    }
+  </style>
 </head>
 
 <body>
-  <h1>Olukayode Hospital</h1>
 
-  <p>Convalescence Home</p>
+  <header>
+    <div class="logo">Olukayode Hospital</div>
+    <div class="tagline">Convalescence Home</div>
+  </header>
 
-  <h2>Welcome</h2>
-  <p>
-    Welcome to Olukayode Hospital. We provide a comfortable environment
-    for care and recovery.
-  </p>
+  <main>
 
-  <h2>Contact Us</h2>
-  <p>Phone: 08033602308</p>
-  <p>Email: Akannifolawiyo5@gmail.com</p>
-  <p>Address: Adepeju Street 39, Lagos, Nigeria</p>
+    <div class="hero">
+      <h1>Welcome to Olukayode Hospital</h1>
+      <p>
+        A comfortable environment designed to support care,
+        recovery and convalescence.
+      </p>
+
+      <div class="buttons">
+        <a class="button primary" href="tel:08033602308">
+          Call Us
+        </a>
+
+        <a class="button secondary"
+           href="mailto:Akannifolawiyo5@gmail.com">
+          Email Us
+        </a>
+      </div>
+    </div>
+
+    <section>
+      <h2 class="section-title">About Us</h2>
+
+      <p class="about">
+        Olukayode Hospital provides a comfortable environment
+        for patients receiving care and recovering from illness.
+        More information about our services will be added to
+        this website as the site develops.
+      </p>
+    </section>
+
+    <section>
+      <h2 class="section-title">Our Services</h2>
+
+      <div class="cards">
+
+        <div class="card">
+          <h3>Convalescence Care</h3>
+          <p>
+            A supportive environment for people during their
+            recovery period.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Patient Support</h3>
+          <p>
+            Comfortable surroundings and support during
+            recovery.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Personalised Care</h3>
+          <p>
+            More information about our care options will be
+            added soon.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="contact">
+      <h2>Contact Us</h2>
+
+      <p>
+        <strong>Phone:</strong>
+        <a href="tel:08033602308">08033602308</a>
+      </p>
+
+      <p>
+        <strong>Email:</strong>
+        <a href="mailto:Akannifolawiyo5@gmail.com">
+          Akannifolawiyo5@gmail.com
+        </a>
+      </p>
+
+      <p>
+        <strong>Address:</strong>
+        Adepeju Street 39, Lagos, Nigeria
+      </p>
+    </section>
+
+  </main>
+
+  <footer>
+    © 2026 Olukayode Hospital. All rights reserved.
+  </footer>
+
 </body>
 </html>
