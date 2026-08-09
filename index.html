@@ -5,160 +5,396 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>Olukayode Hospital | Convalescence Home</title>
+  <meta name="description" content="Olukayode Hospital Convalescence Home">
 
   <style>
     * {
-      box-sizing: border-box;
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
     }
 
     body {
-      font-family: Arial, sans-serif;
-      line-height: 1.6;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f6faf8;
       color: #1f2937;
-      background: #f7faf9;
+      line-height: 1.6;
     }
 
+    a {
+      text-decoration: none;
+    }
+
+    /* HEADER */
+
     header {
-      background: #ffffff;
-      padding: 20px;
-      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(255,255,255,0.97);
       border-bottom: 1px solid #e5e7eb;
     }
 
-    .logo {
-      font-size: 26px;
-      font-weight: 700;
-      color: #176b5b;
+    .nav {
+      max-width: 1100px;
+      margin: auto;
+      padding: 17px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
     }
 
-    .tagline {
-      margin-top: 4px;
+    .brand {
+      color: #126454;
+      font-size: 22px;
+      font-weight: 800;
+    }
+
+    .brand small {
+      display: block;
+      font-size: 11px;
+      color: #64748b;
+      font-weight: 500;
+      margin-top: 1px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 22px;
+    }
+
+    .nav-links a {
+      color: #334155;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .nav-links a:hover {
+      color: #126454;
+    }
+
+    /* HERO */
+
+    .hero {
+      background:
+        linear-gradient(
+          135deg,
+          #e9f7f2 0%,
+          #f8fcfa 55%,
+          #dff2eb 100%
+        );
+      padding: 95px 20px;
+      text-align: center;
+    }
+
+    .hero-content {
+      max-width: 850px;
+      margin: auto;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 7px 14px;
+      border-radius: 30px;
+      background: #d9eee7;
+      color: #126454;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-size: clamp(38px, 7vw, 64px);
+      line-height: 1.05;
+      color: #103f36;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      max-width: 680px;
+      margin: auto;
+      color: #52606d;
+      font-size: 17px;
+    }
+
+    .hero-buttons {
+      margin-top: 30px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 145px;
+      padding: 14px 20px;
+      border-radius: 9px;
+      font-size: 15px;
+      font-weight: 700;
+      transition: 0.2s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      background: #126454;
+      color: white;
+    }
+
+    .btn-secondary {
+      background: white;
+      color: #126454;
+      border: 1px solid #126454;
+    }
+
+    .btn-whatsapp {
+      background: #168a57;
+      color: white;
+    }
+
+    /* GENERAL SECTIONS */
+
+    section {
+      max-width: 1100px;
+      margin: auto;
+      padding: 80px 20px;
+    }
+
+    .section-heading {
+      text-align: center;
+      margin-bottom: 45px;
+    }
+
+    .section-heading span {
+      color: #168a57;
+      font-size: 13px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .section-heading h2 {
+      color: #103f36;
+      font-size: 34px;
+      margin-top: 8px;
+    }
+
+    .section-heading p {
+      max-width: 650px;
+      margin: 10px auto 0;
+      color: #64748b;
+    }
+
+    /* ABOUT */
+
+    .about-box {
+      max-width: 820px;
+      margin: auto;
+      text-align: center;
+      background: white;
+      padding: 35px;
+      border-radius: 18px;
+      border: 1px solid #e5e7eb;
+      box-shadow: 0 8px 30px rgba(15, 60, 50, 0.05);
+    }
+
+    .about-box p {
+      color: #52606d;
+    }
+
+    /* SERVICES */
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .service {
+      background: white;
+      padding: 30px;
+      border-radius: 16px;
+      border: 1px solid #e5e7eb;
+      transition: 0.2s ease;
+    }
+
+    .service:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 30px rgba(15, 60, 50, 0.08);
+    }
+
+    .service-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: #e4f4ef;
+      color: #126454;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      margin-bottom: 18px;
+    }
+
+    .service h3 {
+      color: #126454;
+      margin-bottom: 9px;
+    }
+
+    .service p {
       color: #64748b;
       font-size: 14px;
     }
 
-    .hero {
-      padding: 70px 20px;
-      text-align: center;
-      background: #eaf6f2;
-    }
+    /* QUICK CONTACT */
 
-    .hero h1 {
-      font-size: 38px;
-      margin-bottom: 12px;
-      color: #124f44;
-    }
-
-    .hero p {
-      max-width: 600px;
-      margin: 0 auto 25px;
-      color: #52606d;
-    }
-
-    .buttons {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .button {
-      display: inline-block;
-      padding: 13px 22px;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: 600;
-    }
-
-    .primary {
-      background: #176b5b;
-      color: white;
-    }
-
-    .secondary {
-      background: white;
-      color: #176b5b;
-      border: 1px solid #176b5b;
-    }
-
-    section {
-      max-width: 1000px;
-      margin: auto;
-      padding: 55px 20px;
-    }
-
-    .section-title {
-      text-align: center;
-      margin-bottom: 30px;
-      color: #124f44;
-      font-size: 28px;
-    }
-
-    .about {
-      text-align: center;
-      max-width: 750px;
-      margin: auto;
-      color: #52606d;
-    }
-
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 18px;
-    }
-
-    .card {
-      background: white;
-      padding: 25px;
-      border-radius: 12px;
-      border: 1px solid #e5e7eb;
-    }
-
-    .card h3 {
-      color: #176b5b;
-      margin-bottom: 8px;
-    }
-
-    .card p {
-      color: #64748b;
-    }
-
-    .contact {
-      background: #124f44;
+    .quick-contact {
+      background: #103f36;
       color: white;
       max-width: none;
       text-align: center;
     }
 
-    .contact h2 {
-      margin-bottom: 20px;
+    .quick-contact-inner {
+      max-width: 1000px;
+      margin: auto;
     }
 
-    .contact p {
-      margin: 8px 0;
+    .quick-contact h2 {
+      font-size: 34px;
+      margin-bottom: 10px;
     }
 
-    .contact a {
+    .quick-contact p {
+      color: #d5e8e3;
+      margin-bottom: 25px;
+    }
+
+    /* CONTACT */
+
+    .contact-section {
+      background: #f6faf8;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .contact-card {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 16px;
+      padding: 28px;
+      text-align: center;
+    }
+
+    .contact-card h3 {
+      color: #126454;
+      margin-bottom: 8px;
+    }
+
+    .contact-card p,
+    .contact-card a {
+      color: #64748b;
+      font-size: 14px;
+      word-break: break-word;
+    }
+
+    /* SOCIAL */
+
+    .social {
+      text-align: center;
+      padding-top: 20px;
+    }
+
+    .social a {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 12px 20px;
+      border-radius: 8px;
+      background: #111827;
+      color: white;
+      font-weight: 700;
+    }
+
+    /* FOOTER */
+
+    footer {
+      background: #0b3029;
+      color: #c9ddd8;
+      text-align: center;
+      padding: 25px 20px;
+      font-size: 13px;
+    }
+
+    footer strong {
       color: white;
     }
 
-    footer {
-      background: #0d3830;
-      color: #dbe7e4;
-      text-align: center;
-      padding: 20px;
-      font-size: 14px;
-    }
+    /* MOBILE */
 
-    @media (max-width: 600px) {
-      .hero h1 {
-        font-size: 30px;
+    @media (max-width: 800px) {
+
+      .nav {
+        flex-direction: column;
+      }
+
+      .nav-links {
+        gap: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .services-grid,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding: 75px 20px;
       }
 
       section {
-        padding: 45px 18px;
+        padding: 60px 20px;
+      }
+    }
+
+    @media (max-width: 480px) {
+
+      .nav-links {
+        font-size: 13px;
+      }
+
+      .hero h1 {
+        font-size: 38px;
+      }
+
+      .hero p {
+        font-size: 15px;
+      }
+
+      .hero-buttons {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .about-box {
+        padding: 25px 20px;
       }
     }
   </style>
@@ -166,104 +402,304 @@
 
 <body>
 
+  <!-- HEADER -->
+
   <header>
-    <div class="logo">Olukayode Hospital</div>
-    <div class="tagline">Convalescence Home</div>
+    <div class="nav">
+
+      <a href="#home" class="brand">
+        Olukayode Hospital
+        <small>Convalescence Home</small>
+      </a>
+
+      <nav class="nav-links">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+    </div>
   </header>
 
-  <main>
+
+  <!-- HERO -->
+
+  <main id="home">
 
     <div class="hero">
-      <h1>Welcome to Olukayode Hospital</h1>
-      <p>
-        A comfortable environment designed to support care,
-        recovery and convalescence.
-      </p>
 
-      <div class="buttons">
-        <a class="button primary" href="tel:08033602308">
-          Call Us
-        </a>
+      <div class="hero-content">
 
-        <a class="button secondary"
-           href="mailto:Akannifolawiyo5@gmail.com">
-          Email Us
-        </a>
-     
+        <div class="badge">
+          CONVALESCENCE HOME
+        </div>
+
+        <h1>
+          Care, Comfort & Recovery
+        </h1>
+
+        <p>
+          Welcome to Olukayode Hospital.
+          We provide a comfortable and supportive environment
+          for care, recovery and convalescence.
+        </p>
+
+        <div class="hero-buttons">
+
+          <a
+            class="btn btn-primary"
+            href="tel:08033602308">
+            Call Us
+          </a>
+
+          <a
+            class="btn btn-whatsapp"
+            href="https://wa.me/2348033602308"
+            target="_blank">
+            WhatsApp
+          </a>
+
+          <a
+            class="btn btn-secondary"
+            href="mailto:Akannifolawiyo5@gmail.com">
+            Email Us
+          </a>
+
+        </div>
+
       </div>
+
     </div>
 
-    <section>
-      <h2 class="section-title">About Us</h2>
 
-      <p class="about">
-        Olukayode Hospital provides a comfortable environment
-        for patients receiving care and recovering from illness.
-        More information about our services will be added to
-        this website as the site develops.
-      </p>
+    <!-- ABOUT -->
+
+    <section id="about">
+
+      <div class="section-heading">
+
+        <span>About Us</span>
+
+        <h2>Welcome to Olukayode Hospital</h2>
+
+        <p>
+          A place focused on comfort and supportive recovery.
+        </p>
+
+      </div>
+
+      <div class="about-box">
+
+        <p>
+          Olukayode Hospital is a convalescence home providing
+          a comfortable environment for people during their
+          recovery period.
+        </p>
+
+        <br>
+
+        <p>
+          More information about our hospital, care services
+          and facilities can be added to this website as the
+          hospital website continues to grow.
+        </p>
+
+      </div>
+
     </section>
 
-    <section>
-      <h2 class="section-title">Our Services</h2>
 
-      <div class="cards">
+    <!-- SERVICES -->
 
-        <div class="card">
+    <section id="services">
+
+      <div class="section-heading">
+
+        <span>What We Offer</span>
+
+        <h2>Our Services</h2>
+
+        <p>
+          Information about our services can be expanded here.
+        </p>
+
+      </div>
+
+      <div class="services-grid">
+
+        <div class="service">
+
+          <div class="service-icon">
+            +
+          </div>
+
           <h3>Convalescence Care</h3>
+
           <p>
             A supportive environment for people during their
-            recovery period.
+            recovery and convalescence period.
           </p>
+
         </div>
 
-        <div class="card">
+
+        <div class="service">
+
+          <div class="service-icon">
+            ♥
+          </div>
+
           <h3>Patient Support</h3>
+
           <p>
-            Comfortable surroundings and support during
-            recovery.
+            Comfortable surroundings and support designed
+            around the needs of recovering patients.
           </p>
+
         </div>
 
-        <div class="card">
+
+        <div class="service">
+
+          <div class="service-icon">
+            ✓
+          </div>
+
           <h3>Personalised Care</h3>
+
           <p>
-            More information about our care options will be
-            added soon.
+            Information about additional care options can be
+            added here as the hospital website develops.
           </p>
+
         </div>
 
       </div>
+
     </section>
 
-    <section class="contact">
-      <h2>Contact Us</h2>
 
-      <p>
-        <strong>Phone:</strong>
-        <a href="tel:08033602308">08033602308</a>
-      </p>
+    <!-- QUICK CONTACT -->
 
-      <p>
-        <strong>Email:</strong>
-        <a href="mailto:Akannifolawiyo5@gmail.com">
-          Akannifolawiyo5@gmail.com
-        </a> <a class="button secondary"
-   href="https://wa.me/2348033602308">
-  WhatsApp
-</a>
-      </p>
+    <section class="quick-contact">
 
-      <p>
-        <strong>Address:</strong>
-        Adepeju Street 39, Lagos, Nigeria
-      </p>
+      <div class="quick-contact-inner">
+
+        <h2>Need to Contact Us?</h2>
+
+        <p>
+          Reach Olukayode Hospital directly.
+        </p>
+
+        <div class="hero-buttons">
+
+          <a
+            class="btn btn-primary"
+            href="tel:08033602308">
+            Call 08033602308
+          </a>
+
+          <a
+            class="btn btn-whatsapp"
+            href="https://wa.me/2348033602308"
+            target="_blank">
+            Chat on WhatsApp
+          </a>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- CONTACT -->
+
+    <section id="contact" class="contact-section">
+
+      <div class="section-heading">
+
+        <span>Get In Touch</span>
+
+        <h2>Contact Us</h2>
+
+        <p>
+          We can add more contact options here later.
+        </p>
+
+      </div>
+
+
+      <div class="contact-grid">
+
+        <div class="contact-card">
+
+          <h3>Phone</h3>
+
+          <a href="tel:08033602308">
+            08033602308
+          </a>
+
+        </div>
+
+
+        <div class="contact-card">
+
+          <h3>Email</h3>
+
+          <a href="mailto:Akannifolawiyo5@gmail.com">
+            Akannifolawiyo5@gmail.com
+          </a>
+
+        </div>
+
+
+        <div class="contact-card">
+
+          <h3>Address</h3>
+
+          <p>
+            Adepeju Street 39,<br>
+            Lagos, Nigeria
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <!-- TIKTOK PLACEHOLDER -->
+
+      <div class="social">
+
+        <p>
+          Follow Olukayode Hospital on TikTok
+        </p>
+
+        <!-- Replace # with the real TikTok profile link later -->
+
+        <a href="#" onclick="return false;">
+          TikTok
+        </a>
+
+      </div>
+
     </section>
 
   </main>
 
+
+  <!-- FOOTER -->
+
   <footer>
+
+    <strong>Olukayode Hospital</strong><br>
+
+    Convalescence Home<br><br>
+
     © 2026 Olukayode Hospital. All rights reserved.
+
   </footer>
 
 </body>
