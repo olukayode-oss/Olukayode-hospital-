@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>About Us | Olukayode Hospital</title>
+
+  <meta
+    name="description"
+    content="Learn more about Olukayode Hospital Convalescence Home."
+  >
+
+  <style>
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f7fbf9;
+      color: #17212b;
+      line-height: 1.8;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+
+    /* HEADER */
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+
+      background: rgba(255,255,255,0.94);
+
+      backdrop-filter: blur(14px);
+
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .nav {
+      max-width: 1120px;
+
+      min-height: 76px;
+
+      margin: auto;
+
+      padding: 0 20px;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: space-between;
+    }
+
+    .brand {
+      display: flex;
+
+      align-items: center;
+
+      gap: 11px;
+
+      color: #0b3830;
+
+      font-weight: 800;
+    }
+
+    .logo {
+      width: 45px;
+      height: 45px;
+
+      display: grid;
+
+      place-items: center;
+
+      border-radius: 14px;
+
+      background: #126454;
+
+      color: white;
+
+      font-size: 23px;
+
+      box-shadow:
+        0 8px 22px rgba(18,100,84,0.25);
+    }
+
+    .brand small {
+      display: block;
+
+      color: #64748b;
+
+      font-size: 11px;
+
+      font-weight: 600;
+    }
+
+    nav {
+      display: flex;
+
+      gap: 22px;
+    }
+
+    nav a {
+      color: #40505d;
+
+      font-size: 14px;
+
+      font-weight: 700;
+
+      transition: 0.2s;
+    }
+
+    nav a:hover {
+      color: #126454;
+    }
+
+
+    /* HERO */
+
+    .page-hero {
+
+      position: relative;
+
+      overflow: hidden;
+
+      padding: 105px 20px;
+
+      text-align: center;
+
+      background:
+        linear-gradient(
+          135deg,
+          #e7f7f1,
+          #ffffff 58%,
+          #dff1ea
+        );
+    }
+
+    .page-hero::before {
+
+      content: "";
+
+      position: absolute;
+
+      width: 280px;
+
+      height: 280px;
+
+      border-radius: 50%;
+
+      background: #b9e4d6;
+
+      right: -110px;
+
+      top: -100px;
+
+      opacity: 0.45;
+
+      animation: floating 7s ease-in-out infinite;
+    }
+
+    .page-hero-content {
+
+      position: relative;
+
+      z-index: 2;
+
+      max-width: 800px;
+
+      margin: auto;
+    }
+
+    .eyebrow {
+
+      display: inline-block;
+
+      padding: 7px 14px;
+
+      border-radius: 30px;
+
+      background: #d9eee7;
+
+      color: #126454;
+
+      font-size: 12px;
+
+      font-weight: 800;
+
+      letter-spacing: 1px;
+    }
+
+    .page-hero h1 {
+
+      color: #0b3830;
+
+      font-size: clamp(42px, 6vw, 65px);
+
+      line-height: 1.05;
+
+      margin: 20px 0;
+    }
+
+    .page-hero p {
+
+      max-width: 680px;
+
+      margin: auto;
+
+      color: #52606d;
+
+      font-size: 18px;
+    }
+
+
+    /* GENERAL */
+
+    section {
+      padding: 85px 20px;
+    }
+
+    .container {
+      max-width: 1120px;
+
+      margin: auto;
+    }
+
+    .heading {
+
+      max-width: 760px;
+
+      text-align: center;
+
+      margin:
+        0 auto 45px;
+    }
+
+    .heading span {
+
+      color: #168a57;
+
+      font-size: 12px;
+
+      font-weight: 900;
+
+      letter-spacing: 2px;
+
+      text-transform: uppercase;
+    }
+
+    .heading h2 {
+
+      color: #0b3830;
+
+      font-size: 40px;
+
+      line-height: 1.15;
+
+      margin: 8px 0;
+    }
+
+    .heading p {
+      color: #64748b;
+    }
+
+
+    /* STORY */
+
+    .story {
+
+      display: grid;
+
+      grid-template-columns:
+        1fr 1fr;
+
+      gap: 25px;
+
+      align-items: stretch;
+    }
+
+    .story-card {
+
+      background: white;
+
+      border:
+        1px solid #e5e7eb;
+
+      border-radius: 22px;
+
+      padding: 35px;
+
+      box-shadow:
+        0 12px 35px
+        rgba(15,60,50,0.05);
+    }
+
+    .story-card h3 {
+
+      color: #126454;
+
+      font-size: 24px;
+
+      margin-bottom: 15px;
+    }
+
+    .story-card p {
+
+      color: #64748b;
+
+      margin-bottom: 15px;
+    }
+
+
+    /* HIGHLIGHT */
+
+    .highlight {
+
+      background:
+        linear-gradient(
+          135deg,
+          #0b3830,
+          #126454
+        );
+
+      color: white;
+
+      border-radius: 25px;
+
+      padding: 50px;
+
+      text-align: center;
+
+      box-shadow:
+        0 20px 50px
+        rgba(11,56,48,0.15);
+    }
+
+    .highlight h2 {
+
+      font-size: 34px;
+
+      margin-bottom: 12px;
+    }
+
+    .highlight p {
+
+      max-width: 750px;
+
+      margin: auto;
+
+      color: #d5e8e3;
+    }
+
+
+    /* VALUES */
+
+    .values {
+
+      display: grid;
+
+      grid-template-columns:
+        repeat(3,1fr);
+
+      gap: 20px;
+    }
+
+    .value {
+
+      background: white;
+
+      border:
+        1px solid #e5e7eb;
+
+      border-radius: 20px;
+
+      padding: 30px;
+
+      transition: 0.3s;
+    }
+
+    .value:hover {
+
+      transform:
+        translateY(-8px);
+
+      box-shadow:
+        0 18px 40px
+        rgba(15,60,50,0.09);
+    }
+
+    .icon {
+
+      width: 52px;
+
+      height: 52px;
+
+      display: grid;
+
+      place-items: center;
+
+      border-radius: 15px;
+
+      background: #e4f4ef;
+
+      color: #126454;
+
+      font-size: 22px;
+
+      margin-bottom: 18px;
+    }
+
+    .value h3 {
+
+      color: #0b3830;
+
+      margin-bottom: 8px;
+    }
+
+    .value p {
+
+      color: #64748b;
+
+      font-size: 14px;
+    }
+
+
+    /* CTA */
+
+    .cta {
+
+      background: #eaf7f2;
+
+      text-align: center;
+    }
+
+    .cta h2 {
+
+      color: #0b3830;
+
+      font-size: 35px;
+
+      margin-bottom: 10px;
+    }
+
+    .cta p {
+
+      color: #64748b;
+
+      margin-bottom: 25px;
+    }
+
+    .buttons {
+
+      display: flex;
+
+      justify-content: center;
+
+      flex-wrap: wrap;
+
+      gap: 12px;
+    }
+
+    .button {
+
+      display: inline-flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      padding: 14px 20px;
+
+      border-radius: 10px;
+
+      font-weight: 800;
+
+      transition: 0.25s;
+    }
+
+    .button:hover {
+
+      transform:
+        translateY(-3px);
+    }
+
+    .primary {
+
+      background: #126454;
+
+      color: white;
+    }
+
+    .whatsapp {
+
+      background: #168a57;
+
+      color: white;
+    }
+
+    .secondary {
+
+      background: white;
+
+      color: #126454;
+
+      border:
+        1px solid #126454;
+    }
+
+
+    /* FOOTER */
+
+    footer {
+
+      background: #092c26;
+
+      color: #c9ddd8;
+
+      padding: 28px 20px;
+
+      text-align: center;
+
+      font-size: 13px;
+    }
+
+    footer strong {
+      color: white;
+    }
+
+
+    /* ANIMATION */
+
+    .reveal {
+
+      opacity: 0;
+
+      transform:
+        translateY(30px);
+
+      transition:
+        opacity .8s ease,
+        transform .8s ease;
+    }
+
+    .reveal.visible {
+
+      opacity: 1;
+
+      transform:
+        translateY(0);
+    }
+
+    @keyframes floating {
+
+      0%,100% {
+        transform:
+          translateY(0);
+      }
+
+      50% {
+        transform:
+          translateY(22px);
+      }
+
+    }
+
+
+    /* MOBILE */
+
+    @media(max-width:800px) {
+
+      nav {
+        display: none;
+      }
+
+      .story {
+        grid-template-columns: 1fr;
+      }
+
+      .values {
+        grid-template-columns: 1fr;
+      }
+
+    }
+
+
+    @media(max-width:560px) {
+
+      .page-hero {
+        padding: 75px 20px;
+      }
+
+      .page-hero h1 {
+        font-size: 42px;
+      }
+
+      .page-hero p {
+        font-size: 15px;
+      }
+
+      section {
+        padding: 65px 20px;
+      }
+
+      .heading h2 {
+        font-size: 31px;
+      }
+
+      .highlight {
+        padding: 35px 22px;
+      }
+
+      .highlight h2 {
+        font-size: 28px;
+      }
+
+      .buttons {
+        flex-direction: column;
+      }
+
+      .button {
+        width: 100%;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+<!-- HEADER -->
+
+<header>
+
+  <div class="nav">
+
+
+    <a
+      href="index.html"
+      class="brand">
+
+      <span class="logo">
+        ✚
+      </span>
+
+      <span>
+
+        Olukayode Hospital
+
+        <small>
+          Convalescence Home
+        </small>
+
+      </span>
+
+    </a>
+
+
+    <nav>
+
+      <a href="index.html">
+        Home
+      </a>
+
+      <a href="about.html">
+        About
+      </a>
+
+      <a href="services.html">
+        Services
+      </a>
+
+      <a href="contact.html">
+        Contact
+      </a>
+
+    </nav>
+
+
+  </div>
+
+</header>
+
+
+
+<!-- HERO -->
+
+<section class="page-hero">
+
+  <div class="page-hero-content">
+
+    <span class="eyebrow">
+      ABOUT OLUKAYODE HOSPITAL
+    </span>
+
+
+    <h1>
+      Our Story
+    </h1>
+
+
+    <p>
+      Learn more about Olukayode Hospital,
+      our purpose and the environment we aim
+      to provide for people during recovery.
+    </p>
+
+  </div>
+
+</section>
+
+
+
+<main>
+
+
+<!-- STORY -->
+
+<section>
+
+  <div class="container">
+
+
+    <div class="heading reveal">
+
+      <span>
+        Who We Are
+      </span>
+
+      <h2>
+        About Olukayode Hospital
+      </h2>
+
+      <p>
+        A dedicated space for the hospital's
+        story, purpose and values.
+      </p>
+
+    </div>
+
+
+
+    <div class="story">
+
+
+      <div class="story-card reveal">
+
+        <h3>
+          Our Story
+        </h3>
+
+
+        <p>
+          Olukayode Hospital is a
+          convalescence home designed to
+          provide a comfortable environment
+          for people during a period of
+          recovery.
+        </p>
+
+
+        <p>
+          Recovery is not only about treatment.
+          The environment around a person can
+          also play an important role in their
+          comfort and overall experience.
+          Our website provides a place where
+          visitors can learn more about the
+          hospital and the services it provides.
+        </p>
+
+
+        <p>
+          As this website continues to develop,
+          this section can be expanded with the
+          hospital's real history, founding story,
+          milestones and information about the
+          people behind the organisation.
+        </p>
+
+      </div>
+
+
+
+      <div class="story-card reveal">
+
+        <h3>
+          Our Purpose
+        </h3>
+
+
+        <p>
+          The purpose of this page is to give
+          visitors a clearer understanding of
+          Olukayode Hospital beyond a simple
+          contact page.
+        </p>
+
+
+        <p>
+          Here, the hospital can explain its
+          approach to convalescence care,
+          describe its environment and provide
+          important information for families and
+          visitors.
+        </p>
+
+
+        <p>
+          We will continue adding verified
+          information supplied by the hospital
+          so that the website remains accurate,
+          useful and professional.
+        </p>
+
+      </div>
+
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- BIG STATEMENT -->
+
+<section>
+
+  <div class="container">
+
+    <div class="highlight reveal">
+
+      <h2>
+        Comfort. Care. Recovery.
+      </h2>
+
+
+      <p>
+        Olukayode Hospital's website is designed
+        to make it easier for visitors and families
+        to learn about the hospital, understand
+        its services and get in touch when they
+        need more information.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- VALUES -->
+
+<section>
+
+  <div class="container">
+
+
+    <div class="heading reveal">
+
+      <span>
+        Our Values
+      </span>
+
+      <h2>
+        What Matters
+      </h2>
+
+      <p>
+        These sections can later be replaced or
+        expanded with the hospital's official
+        values and statements.
+      </p>
+
+    </div>
+
+
+
+    <div class="values">
+
+
+      <div class="value reveal">
+
+        <div class="icon">
+          ♥
+        </div>
+
+        <h3>
+          Compassion
+        </h3>
+
+        <p>
+          A space to describe the hospital's
+          approach to treating patients and
+          supporting people during recovery.
+        </p>
+
+      </div>
+
+
+
+      <div class="value reveal">
+
+        <div class="icon">
+          ✓
+        </div>
+
+        <h3>
+          Respect
+        </h3>
+
+        <p>
+          A space for the hospital to explain
+          its commitment to dignity, respect
+          and patient-focused care.
+        </p>
+
+      </div>
+
+
+
+      <div class="value reveal">
+
+        <div class="icon">
+          ✚
+        </div>
+
+        <h3>
+          Comfort
+        </h3>
+
+        <p>
+          A place to explain the environment
+          and facilities available to people
+          during their recovery.
+        </p>
+
+      </div>
+
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- MORE INFORMATION -->
+
+<section>
+
+  <div class="container">
+
+
+    <div class="heading reveal">
+
+      <span>
+        More About Us
+      </span>
+
+      <h2>
+        Building the Full Story
+      </h2>
+
+      <p>
+        This website can continue to grow as
+        more official information becomes available.
+      </p>
+
+    </div>
+
+
+    <div class="story">
+
+
+      <div class="story-card reveal">
+
+        <h3>
+          Our Facilities
+        </h3>
+
+        <p>
+          Information about rooms, facilities,
+          accessibility and other available
+          resources can be added here.
+        </p>
+
+      </div>
+
+
+      <div class="story-card reveal">
+
+        <h3>
+          Our Team
+        </h3>
+
+        <p>
+          Staff profiles, leadership information
+          and professional qualifications can be
+          added here when the hospital provides
+          the appropriate information.
+        </p>
+
+      </div>
+
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- CTA -->
+
+<section class="cta">
+
+  <div class="container">
+
+    <h2 class="reveal">
+      Want to speak with us?
+    </h2>
+
+
+    <p class="reveal">
+      Contact Olukayode Hospital directly.
+    </p>
+
+
+    <div class="buttons reveal">
+
+
+      <a
+        class="button primary"
+        href="tel:08033602308">
+
+        Call Us
+
+      </a>
+
+
+      <a
+        class="button whatsapp"
+        href="https://wa.me/2348033602308"
+        target="_blank">
+
+        WhatsApp
+
+      </a>
+
+
+      <a
+        class="button secondary"
+        href="mailto:Akannifolawiyo5@gmail.com">
+
+        Email Us
+
+      </a>
+
+
+    </div>
+
+  </div>
+
+</section>
+
+
+</main>
+
+
+
+<!-- FOOTER -->
+
+<footer>
+
+  <strong>
+    Olukayode Hospital
+  </strong>
+
+  <br>
+
+  Convalescence Home
+
+  <br><br>
+
+  © 2026 Olukayode Hospital.
+  All rights reserved.
+
+</footer>
+
+
+
+<script>
+
+  const elements =
+    document.querySelectorAll(".reveal");
+
+
+  const observer =
+    new IntersectionObserver(
+
+      (entries) => {
+
+        entries.forEach((entry) => {
+
+          if (entry.isIntersecting) {
+
+            entry.target.classList.add(
+              "visible"
+            );
+
+            observer.unobserve(
+              entry.target
+            );
+
+          }
+
+        });
+
+      },
+
+      {
+        threshold: 0.12
+      }
+
+    );
+
+
+  elements.forEach((element) => {
+
+    observer.observe(element);
+
+  });
+
+</script>
+
+
+</body>
+
+</html>
