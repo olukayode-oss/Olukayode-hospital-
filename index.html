@@ -9,9 +9,9 @@
 
   <style>
     * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
     }
 
     html {
@@ -20,9 +20,10 @@
 
     body {
       font-family: Arial, Helvetica, sans-serif;
-      background: #f6faf8;
-      color: #1f2937;
-      line-height: 1.6;
+      background: #f7fbf9;
+      color: #17212b;
+      line-height: 1.7;
+      overflow-x: hidden;
     }
 
     a {
@@ -35,307 +36,551 @@
       position: sticky;
       top: 0;
       z-index: 1000;
-      background: rgba(255,255,255,0.97);
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(14px);
       border-bottom: 1px solid #e5e7eb;
     }
 
     .nav {
-      max-width: 1100px;
+      max-width: 1120px;
+      min-height: 76px;
       margin: auto;
-      padding: 17px 20px;
+      padding: 0 20px;
+
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 20px;
     }
 
     .brand {
-      color: #126454;
-      font-size: 22px;
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      color: #0b3830;
       font-weight: 800;
+    }
+
+    .logo {
+      width: 45px;
+      height: 45px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 14px;
+
+      background: #126454;
+      color: white;
+
+      font-size: 23px;
+
+      box-shadow:
+        0 8px 22px rgba(18,100,84,0.25);
     }
 
     .brand small {
       display: block;
-      font-size: 11px;
       color: #64748b;
-      font-weight: 500;
-      margin-top: 1px;
+      font-size: 11px;
+      font-weight: 600;
     }
 
-    .nav-links {
+    nav {
       display: flex;
       gap: 22px;
     }
 
-    .nav-links a {
-      color: #334155;
+    nav a {
+      color: #40505d;
       font-size: 14px;
-      font-weight: 600;
+      font-weight: 700;
+      transition: 0.2s;
     }
 
-    .nav-links a:hover {
+    nav a:hover {
       color: #126454;
     }
+
 
     /* HERO */
 
     .hero {
+      position: relative;
+      overflow: hidden;
+
+      padding: 110px 20px;
+
       background:
         linear-gradient(
           135deg,
-          #e9f7f2 0%,
-          #f8fcfa 55%,
-          #dff2eb 100%
+          #e7f7f1,
+          #ffffff 58%,
+          #dff1ea
         );
-      padding: 95px 20px;
-      text-align: center;
     }
 
-    .hero-content {
-      max-width: 850px;
+    .hero::before,
+    .hero::after {
+      content: "";
+
+      position: absolute;
+
+      border-radius: 50%;
+
+      opacity: 0.45;
+
+      animation: floating 7s ease-in-out infinite;
+    }
+
+    .hero::before {
+      width: 280px;
+      height: 280px;
+
+      background: #b9e4d6;
+
+      right: -100px;
+      top: -100px;
+    }
+
+    .hero::after {
+      width: 190px;
+      height: 190px;
+
+      background: #dcebc3;
+
+      left: -70px;
+      bottom: -70px;
+
+      animation-delay: -3s;
+    }
+
+    .hero-grid {
+      position: relative;
+      z-index: 2;
+
+      max-width: 1120px;
       margin: auto;
+
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+
+      gap: 55px;
+
+      align-items: center;
     }
 
-    .badge {
+    .eyebrow {
       display: inline-block;
+
       padding: 7px 14px;
+
       border-radius: 30px;
+
       background: #d9eee7;
+
       color: #126454;
-      font-size: 13px;
-      font-weight: 700;
-      margin-bottom: 20px;
+
+      font-size: 12px;
+
+      font-weight: 800;
+
+      letter-spacing: 1px;
     }
 
     .hero h1 {
-      font-size: clamp(38px, 7vw, 64px);
-      line-height: 1.05;
-      color: #103f36;
-      margin-bottom: 20px;
+      font-size: clamp(42px, 6vw, 70px);
+
+      line-height: 1.03;
+
+      color: #0b3830;
+
+      margin: 20px 0;
     }
 
-    .hero p {
-      max-width: 680px;
-      margin: auto;
+    .hero-text {
+      max-width: 650px;
+
       color: #52606d;
-      font-size: 17px;
+
+      font-size: 18px;
     }
 
-    .hero-buttons {
-      margin-top: 30px;
+
+    /* BUTTONS */
+
+    .buttons {
       display: flex;
-      justify-content: center;
+
       flex-wrap: wrap;
+
       gap: 12px;
+
+      margin-top: 30px;
     }
 
-    .btn {
+    .button {
       display: inline-flex;
+
       align-items: center;
       justify-content: center;
-      min-width: 145px;
+
       padding: 14px 20px;
-      border-radius: 9px;
-      font-size: 15px;
-      font-weight: 700;
-      transition: 0.2s ease;
+
+      border-radius: 10px;
+
+      font-weight: 800;
+
+      transition: 0.25s;
     }
 
-    .btn:hover {
-      transform: translateY(-2px);
+    .button:hover {
+      transform: translateY(-3px);
     }
 
-    .btn-primary {
+    .primary {
       background: #126454;
       color: white;
     }
 
-    .btn-secondary {
-      background: white;
-      color: #126454;
-      border: 1px solid #126454;
-    }
-
-    .btn-whatsapp {
+    .whatsapp {
       background: #168a57;
       color: white;
     }
 
-    /* GENERAL SECTIONS */
+    .secondary {
+      background: white;
+      color: #126454;
 
-    section {
-      max-width: 1100px;
-      margin: auto;
-      padding: 80px 20px;
+      border: 1px solid #126454;
     }
 
-    .section-heading {
-      text-align: center;
-      margin-bottom: 45px;
+
+    /* HERO CARD */
+
+    .hero-card {
+      background: rgba(255,255,255,0.8);
+
+      padding: 32px;
+
+      border-radius: 28px;
+
+      border: 1px solid rgba(255,255,255,0.9);
+
+      box-shadow:
+        0 25px 70px rgba(16,63,54,0.13);
+
+      animation: cardAppear 0.9s ease;
     }
 
-    .section-heading span {
-      color: #168a57;
-      font-size: 13px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 1px;
+    .hero-icon {
+      width: 78px;
+      height: 78px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 24px;
+
+      background: #126454;
+
+      color: white;
+
+      font-size: 38px;
+
+      margin-bottom: 20px;
     }
 
-    .section-heading h2 {
-      color: #103f36;
-      font-size: 34px;
-      margin-top: 8px;
+    .hero-card h2 {
+      color: #0b3830;
+
+      font-size: 25px;
+
+      margin-bottom: 5px;
     }
 
-    .section-heading p {
-      max-width: 650px;
-      margin: 10px auto 0;
+    .hero-card p {
       color: #64748b;
     }
 
+    .stats {
+      display: grid;
+
+      grid-template-columns: repeat(3,1fr);
+
+      gap: 10px;
+
+      margin-top: 25px;
+    }
+
+    .stat {
+      background: white;
+
+      padding: 14px;
+
+      border-radius: 13px;
+
+      text-align: center;
+
+      border: 1px solid #e5e7eb;
+    }
+
+    .stat strong {
+      display: block;
+
+      color: #126454;
+
+      font-size: 18px;
+    }
+
+    .stat span {
+      color: #64748b;
+
+      font-size: 11px;
+    }
+
+
+    /* SECTIONS */
+
+    section {
+      padding: 85px 20px;
+    }
+
+    .container {
+      max-width: 1120px;
+
+      margin: auto;
+    }
+
+    .heading {
+      max-width: 720px;
+
+      text-align: center;
+
+      margin: auto auto 45px;
+    }
+
+    .heading span {
+      color: #168a57;
+
+      font-size: 12px;
+
+      font-weight: 900;
+
+      letter-spacing: 2px;
+
+      text-transform: uppercase;
+    }
+
+    .heading h2 {
+      color: #0b3830;
+
+      font-size: 40px;
+
+      line-height: 1.15;
+
+      margin: 8px 0;
+    }
+
+    .heading p {
+      color: #64748b;
+    }
+
+
     /* ABOUT */
 
-    .about-box {
-      max-width: 820px;
-      margin: auto;
-      text-align: center;
-      background: white;
-      padding: 35px;
-      border-radius: 18px;
-      border: 1px solid #e5e7eb;
-      box-shadow: 0 8px 30px rgba(15, 60, 50, 0.05);
+    .about-grid {
+      display: grid;
+
+      grid-template-columns: 1fr 1fr;
+
+      gap: 22px;
     }
 
-    .about-box p {
-      color: #52606d;
+    .panel {
+      background: white;
+
+      border: 1px solid #e5e7eb;
+
+      border-radius: 22px;
+
+      padding: 32px;
+
+      box-shadow:
+        0 12px 35px rgba(15,60,50,0.05);
     }
+
+    .panel h3 {
+      color: #126454;
+
+      margin-bottom: 10px;
+    }
+
+    .panel p {
+      color: #64748b;
+    }
+
+    .read-more {
+      display: inline-block;
+
+      margin-top: 18px;
+
+      color: #126454;
+
+      font-weight: 800;
+    }
+
 
     /* SERVICES */
 
-    .services-grid {
+    .service-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
+
+      grid-template-columns: repeat(3,1fr);
+
+      gap: 18px;
     }
 
     .service {
       background: white;
-      padding: 30px;
-      border-radius: 16px;
+
+      padding: 28px;
+
+      border-radius: 20px;
+
       border: 1px solid #e5e7eb;
-      transition: 0.2s ease;
+
+      transition: 0.3s;
     }
 
     .service:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 10px 30px rgba(15, 60, 50, 0.08);
+      transform: translateY(-8px);
+
+      box-shadow:
+        0 18px 40px rgba(15,60,50,0.09);
     }
 
     .service-icon {
-      width: 48px;
-      height: 48px;
-      border-radius: 12px;
+      width: 50px;
+      height: 50px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 15px;
+
       background: #e4f4ef;
+
       color: #126454;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 22px;
+
+      font-size: 23px;
+
       margin-bottom: 18px;
     }
 
     .service h3 {
-      color: #126454;
-      margin-bottom: 9px;
+      color: #0b3830;
+
+      margin-bottom: 7px;
     }
 
     .service p {
       color: #64748b;
+
       font-size: 14px;
     }
 
-    /* QUICK CONTACT */
 
-    .quick-contact {
-      background: #103f36;
+    /* CTA */
+
+    .cta {
+      background:
+        linear-gradient(
+          135deg,
+          #0b3830,
+          #126454
+        );
+
       color: white;
-      max-width: none;
-      text-align: center;
     }
 
-    .quick-contact-inner {
-      max-width: 1000px;
-      margin: auto;
+    .cta .heading h2 {
+      color: white;
     }
 
-    .quick-contact h2 {
-      font-size: 34px;
-      margin-bottom: 10px;
-    }
-
-    .quick-contact p {
+    .cta .heading p {
       color: #d5e8e3;
-      margin-bottom: 25px;
     }
+
+    .center {
+      justify-content: center;
+    }
+
 
     /* CONTACT */
 
-    .contact-section {
-      background: #f6faf8;
-    }
-
     .contact-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
+
+      grid-template-columns: repeat(3,1fr);
+
+      gap: 18px;
     }
 
     .contact-card {
       background: white;
+
       border: 1px solid #e5e7eb;
-      border-radius: 16px;
+
+      border-radius: 18px;
+
       padding: 28px;
+
       text-align: center;
+    }
+
+    .contact-icon {
+      width: 50px;
+      height: 50px;
+
+      margin: auto auto 14px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 15px;
+
+      background: #e4f4ef;
+
+      color: #126454;
+
+      font-size: 21px;
     }
 
     .contact-card h3 {
       color: #126454;
-      margin-bottom: 8px;
+
+      margin-bottom: 5px;
     }
 
     .contact-card p,
     .contact-card a {
       color: #64748b;
+
       font-size: 14px;
-      word-break: break-word;
     }
 
-    /* SOCIAL */
-
-    .social {
-      text-align: center;
-      padding-top: 20px;
-    }
-
-    .social a {
-      display: inline-block;
-      margin-top: 10px;
-      padding: 12px 20px;
-      border-radius: 8px;
-      background: #111827;
-      color: white;
-      font-weight: 700;
-    }
 
     /* FOOTER */
 
     footer {
-      background: #0b3029;
+      background: #092c26;
+
       color: #c9ddd8;
+
+      padding: 28px 20px;
+
       text-align: center;
-      padding: 25px 20px;
+
       font-size: 13px;
     }
 
@@ -343,364 +588,677 @@
       color: white;
     }
 
+
+    /* ANIMATIONS */
+
+    .reveal {
+      opacity: 0;
+
+      transform: translateY(30px);
+
+      transition:
+        opacity 0.8s ease,
+        transform 0.8s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+
+      transform: translateY(0);
+    }
+
+    @keyframes floating {
+
+      0%,100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(22px);
+      }
+
+    }
+
+    @keyframes cardAppear {
+
+      from {
+        opacity: 0;
+
+        transform:
+          translateY(30px)
+          scale(0.97);
+      }
+
+      to {
+        opacity: 1;
+
+        transform:
+          translateY(0)
+          scale(1);
+      }
+
+    }
+
+
     /* MOBILE */
 
-    @media (max-width: 800px) {
+    @media(max-width:850px) {
 
-      .nav {
-        flex-direction: column;
+      .hero-grid {
+        grid-template-columns: 1fr;
       }
 
-      .nav-links {
-        gap: 15px;
-        flex-wrap: wrap;
-        justify-content: center;
+      .about-grid {
+        grid-template-columns: 1fr;
       }
 
-      .services-grid,
+      .service-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
       .contact-grid {
         grid-template-columns: 1fr;
       }
+
+      nav {
+        display: none;
+      }
+
+    }
+
+
+    @media(max-width:560px) {
 
       .hero {
         padding: 75px 20px;
       }
 
-      section {
-        padding: 60px 20px;
-      }
-    }
-
-    @media (max-width: 480px) {
-
-      .nav-links {
-        font-size: 13px;
-      }
-
       .hero h1 {
-        font-size: 38px;
+        font-size: 42px;
       }
 
-      .hero p {
+      .hero-text {
         font-size: 15px;
       }
 
-      .hero-buttons {
+      .service-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .buttons {
         flex-direction: column;
       }
 
-      .btn {
+      .button {
         width: 100%;
       }
 
-      .about-box {
-        padding: 25px 20px;
+      section {
+        padding: 65px 20px;
       }
+
+      .heading h2 {
+        font-size: 31px;
+      }
+
     }
+
   </style>
 </head>
 
+
 <body>
 
-  <!-- HEADER -->
 
-  <header>
-    <div class="nav">
+<header>
 
-      <a href="#home" class="brand">
+  <div class="nav">
+
+    <a href="index.html" class="brand">
+
+      <span class="logo">✚</span>
+
+      <span>
         Olukayode Hospital
         <small>Convalescence Home</small>
-      </a>
+      </span>
 
-      <nav class="nav-links">
-        <a href="#home">Home</a>
-        <a href="#about">About</a>
-        <a href="#services">Services</a>
-        <a href="#contact">Contact</a>
-      </nav>
+    </a>
 
-    </div>
-  </header>
 
+    <nav>
 
-  <!-- HERO -->
+      <a href="index.html">Home</a>
 
-  <main id="home">
+      <a href="about.html">About</a>
 
-    <div class="hero">
+      <a href="services.html">Services</a>
 
-      <div class="hero-content">
+      <a href="contact.html">Contact</a>
 
-        <div class="badge">
-          CONVALESCENCE HOME
-        </div>
+    </nav>
 
-        <h1>
-          Care, Comfort & Recovery
-        </h1>
+  </div>
 
-        <p>
-          Welcome to Olukayode Hospital.
-          We provide a comfortable and supportive environment
-          for care, recovery and convalescence.
-        </p>
+</header>
 
-        <div class="hero-buttons">
 
-          <a
-            class="btn btn-primary"
-            href="tel:08033602308">
-            Call Us
-          </a>
 
-          <a
-            class="btn btn-whatsapp"
-            href="https://wa.me/2348033602308"
-            target="_blank">
-            WhatsApp
-          </a>
+<main>
 
-          <a
-            class="btn btn-secondary"
-            href="mailto:Akannifolawiyo5@gmail.com">
-            Email Us
-          </a>
 
-        </div>
+<!-- HERO -->
 
-      </div>
+<section class="hero">
 
-    </div>
+  <div class="hero-grid">
 
 
-    <!-- ABOUT -->
+    <div>
 
-    <section id="about">
+      <span class="eyebrow">
+        CONVALESCENCE HOME
+      </span>
 
-      <div class="section-heading">
 
-        <span>About Us</span>
+      <h1>
+        Care, Comfort & Recovery
+      </h1>
 
-        <h2>Welcome to Olukayode Hospital</h2>
 
-        <p>
-          A place focused on comfort and supportive recovery.
-        </p>
+      <p class="hero-text">
+        Welcome to Olukayode Hospital.
+        We provide a comfortable and supportive
+        environment for care, recovery and convalescence.
+      </p>
 
-      </div>
 
-      <div class="about-box">
+      <div class="buttons">
 
-        <p>
-          Olukayode Hospital is a convalescence home providing
-          a comfortable environment for people during their
-          recovery period.
-        </p>
+        <a
+          class="button primary"
+          href="tel:08033602308">
 
-        <br>
+          Call Us
 
-        <p>
-          More information about our hospital, care services
-          and facilities can be added to this website as the
-          hospital website continues to grow.
-        </p>
+        </a>
 
-      </div>
 
-    </section>
+        <a
+          class="button whatsapp"
+          href="https://wa.me/2348033602308"
+          target="_blank">
 
+          WhatsApp
 
-    <!-- SERVICES -->
+        </a>
 
-    <section id="services">
 
-      <div class="section-heading">
+        <a
+          class="button secondary"
+          href="mailto:Akannifolawiyo5@gmail.com">
 
-        <span>What We Offer</span>
+          Email Us
 
-        <h2>Our Services</h2>
-
-        <p>
-          Information about our services can be expanded here.
-        </p>
-
-      </div>
-
-      <div class="services-grid">
-
-        <div class="service">
-
-          <div class="service-icon">
-            +
-          </div>
-
-          <h3>Convalescence Care</h3>
-
-          <p>
-            A supportive environment for people during their
-            recovery and convalescence period.
-          </p>
-
-        </div>
-
-
-        <div class="service">
-
-          <div class="service-icon">
-            ♥
-          </div>
-
-          <h3>Patient Support</h3>
-
-          <p>
-            Comfortable surroundings and support designed
-            around the needs of recovering patients.
-          </p>
-
-        </div>
-
-
-        <div class="service">
-
-          <div class="service-icon">
-            ✓
-          </div>
-
-          <h3>Personalised Care</h3>
-
-          <p>
-            Information about additional care options can be
-            added here as the hospital website develops.
-          </p>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- QUICK CONTACT -->
-
-    <section class="quick-contact">
-
-      <div class="quick-contact-inner">
-
-        <h2>Need to Contact Us?</h2>
-
-        <p>
-          Reach Olukayode Hospital directly.
-        </p>
-
-        <div class="hero-buttons">
-
-          <a
-            class="btn btn-primary"
-            href="tel:08033602308">
-            Call 08033602308
-          </a>
-
-          <a
-            class="btn btn-whatsapp"
-            href="https://wa.me/2348033602308"
-            target="_blank">
-            Chat on WhatsApp
-          </a>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- CONTACT -->
-
-    <section id="contact" class="contact-section">
-
-      <div class="section-heading">
-
-        <span>Get In Touch</span>
-
-        <h2>Contact Us</h2>
-
-        <p>
-          We can add more contact options here later.
-        </p>
-
-      </div>
-
-
-      <div class="contact-grid">
-
-        <div class="contact-card">
-
-          <h3>Phone</h3>
-
-          <a href="tel:08033602308">
-            08033602308
-          </a>
-
-        </div>
-
-
-        <div class="contact-card">
-
-          <h3>Email</h3>
-
-          <a href="mailto:Akannifolawiyo5@gmail.com">
-            Akannifolawiyo5@gmail.com
-          </a>
-
-        </div>
-
-
-        <div class="contact-card">
-
-          <h3>Address</h3>
-
-          <p>
-            Adepeju Street 39,<br>
-            Lagos, Nigeria
-          </p>
-
-        </div>
-
-      </div>
-
-
-      <!-- TIKTOK PLACEHOLDER -->
-
-      <div class="social">
-
-        <p>
-          Follow Olukayode Hospital on TikTok
-        </p>
-
-        <!-- Replace # with the real TikTok profile link later -->
-
-        <a href="#" onclick="return false;">
-          TikTok
         </a>
 
       </div>
 
-    </section>
-
-  </main>
+    </div>
 
 
-  <!-- FOOTER -->
 
-  <footer>
+    <div class="hero-card">
 
-    <strong>Olukayode Hospital</strong><br>
+      <div class="hero-icon">
+        ✚
+      </div>
 
-    Convalescence Home<br><br>
 
-    © 2026 Olukayode Hospital. All rights reserved.
+      <h2>
+        Olukayode Hospital
+      </h2>
 
-  </footer>
+      <p>
+        Convalescence Home
+      </p>
+
+
+      <div class="stats">
+
+        <div class="stat">
+
+          <strong>
+            Care
+          </strong>
+
+          <span>
+            Support
+          </span>
+
+        </div>
+
+
+        <div class="stat">
+
+          <strong>
+            Comfort
+          </strong>
+
+          <span>
+            Environment
+          </span>
+
+        </div>
+
+
+        <div class="stat">
+
+          <strong>
+            Contact
+          </strong>
+
+          <span>
+            Available
+          </span>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- ABOUT PREVIEW -->
+
+<section>
+
+  <div class="container">
+
+
+    <div class="heading reveal">
+
+      <span>
+        About Us
+      </span>
+
+      <h2>
+        A place for comfort and recovery
+      </h2>
+
+      <p>
+        Learn more about Olukayode Hospital,
+        our story and the environment we provide.
+      </p>
+
+    </div>
+
+
+
+    <div class="about-grid">
+
+
+      <div class="panel reveal">
+
+        <h3>
+          Who We Are
+        </h3>
+
+        <p>
+          Olukayode Hospital is a convalescence home
+          focused on providing a comfortable and supportive
+          environment during recovery.
+        </p>
+
+
+        <a
+          class="read-more"
+          href="about.html">
+
+          Read Our Full Story →
+
+        </a>
+
+      </div>
+
+
+
+      <div class="panel reveal">
+
+        <h3>
+          Our Approach
+        </h3>
+
+        <p>
+          This website will contain the hospital's
+          approved information about its mission,
+          values, facilities and services.
+        </p>
+
+
+        <a
+          class="read-more"
+          href="services.html">
+
+          Explore Our Services →
+
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- SERVICES -->
+
+<section>
+
+  <div class="container">
+
+
+    <div class="heading reveal">
+
+      <span>
+        What We Offer
+      </span>
+
+      <h2>
+        Our Services
+      </h2>
+
+      <p>
+        Information about the hospital's services
+        can be expanded as we build the website.
+      </p>
+
+    </div>
+
+
+
+    <div class="service-grid">
+
+
+      <div class="service reveal">
+
+        <div class="service-icon">
+          ✚
+        </div>
+
+        <h3>
+          Convalescence Care
+        </h3>
+
+        <p>
+          A supportive environment for people
+          during their recovery and convalescence period.
+        </p>
+
+      </div>
+
+
+
+      <div class="service reveal">
+
+        <div class="service-icon">
+          ♥
+        </div>
+
+        <h3>
+          Patient Support
+        </h3>
+
+        <p>
+          Comfortable surroundings and support
+          for recovering patients.
+        </p>
+
+      </div>
+
+
+
+      <div class="service reveal">
+
+        <div class="service-icon">
+          ✓
+        </div>
+
+        <h3>
+          Personalised Care
+        </h3>
+
+        <p>
+          A section for the hospital's approved
+          care options and facilities.
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- CALL TO ACTION -->
+
+<section class="cta">
+
+  <div class="container">
+
+
+    <div class="heading reveal">
+
+      <span>
+        Need To Reach Us?
+      </span>
+
+      <h2>
+        Contact Olukayode Hospital
+      </h2>
+
+      <p>
+        Call, email or message us directly.
+      </p>
+
+
+      <div class="buttons center">
+
+        <a
+          class="button primary"
+          href="tel:08033602308">
+
+          Call
+
+        </a>
+
+
+        <a
+          class="button whatsapp"
+          href="https://wa.me/2348033602308"
+          target="_blank">
+
+          WhatsApp
+
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- CONTACT -->
+
+<section>
+
+  <div class="container">
+
+
+    <div class="heading reveal">
+
+      <span>
+        Get In Touch
+      </span>
+
+      <h2>
+        Contact Us
+      </h2>
+
+      <p>
+        We are available through the contact
+        details below.
+      </p>
+
+    </div>
+
+
+
+    <div class="contact-grid">
+
+
+      <div class="contact-card reveal">
+
+        <div class="contact-icon">
+          ☎
+        </div>
+
+        <h3>
+          Phone
+        </h3>
+
+        <a href="tel:08033602308">
+          08033602308
+        </a>
+
+      </div>
+
+
+
+      <div class="contact-card reveal">
+
+        <div class="contact-icon">
+          ✉
+        </div>
+
+        <h3>
+          Email
+        </h3>
+
+        <a href="mailto:Akannifolawiyo5@gmail.com">
+          Akannifolawiyo5@gmail.com
+        </a>
+
+      </div>
+
+
+
+      <div class="contact-card reveal">
+
+        <div class="contact-icon">
+          ⌖
+        </div>
+
+        <h3>
+          Address
+        </h3>
+
+        <p>
+          Adepeju Street 39,<br>
+          Lagos, Nigeria
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+</main>
+
+
+
+<footer>
+
+  <strong>
+    Olukayode Hospital
+  </strong>
+
+  <br>
+
+  Convalescence Home
+
+  <br><br>
+
+  © 2026 Olukayode Hospital.
+  All rights reserved.
+
+</footer>
+
+
+
+<script>
+
+  const revealElements =
+    document.querySelectorAll(".reveal");
+
+
+  const observer =
+    new IntersectionObserver(
+
+      (entries) => {
+
+        entries.forEach((entry) => {
+
+          if (entry.isIntersecting) {
+
+            entry.target.classList.add("visible");
+
+            observer.unobserve(entry.target);
+
+          }
+
+        });
+
+      },
+
+      {
+        threshold: 0.12
+      }
+
+    );
+
+
+  revealElements.forEach((element) => {
+
+    observer.observe(element);
+
+  });
+
+</script>
+
 
 </body>
 </html>
