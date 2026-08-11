@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Contact | Olukayode Hospital</title>
+
+<meta name="description"
+content="Contact Olukayode Hospital Convalescence Home in Lagos, Nigeria.">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+html{
+scroll-behavior:smooth;
+}
+
+body{
+font-family:Arial,Helvetica,sans-serif;
+background:#f7fbf9;
+color:#17212b;
+line-height:1.7;
+}
+
+a{
+text-decoration:none;
+}
+
+header{
+position:sticky;
+top:0;
+z-index:1000;
+background:rgba(255,255,255,.94);
+backdrop-filter:blur(14px);
+border-bottom:1px solid #e5e7eb;
+}
+
+.nav{
+max-width:1120px;
+min-height:76px;
+margin:auto;
+padding:0 20px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+}
+
+.brand{
+display:flex;
+align-items:center;
+gap:11px;
+color:#0b3830;
+font-weight:800;
+}
+
+.logo{
+width:45px;
+height:45px;
+display:grid;
+place-items:center;
+border-radius:14px;
+background:#126454;
+color:white;
+font-size:23px;
+box-shadow:0 8px 22px rgba(18,100,84,.25);
+}
+
+.brand small{
+display:block;
+color:#64748b;
+font-size:11px;
+font-weight:600;
+}
+
+nav{
+display:flex;
+gap:22px;
+}
+
+nav a{
+color:#40505d;
+font-size:14px;
+font-weight:700;
+transition:.2s;
+}
+
+nav a:hover{
+color:#126454;
+}
+
+
+/* HERO */
+
+.hero{
+position:relative;
+overflow:hidden;
+padding:110px 20px;
+color:white;
+text-align:center;
+
+background:
+linear-gradient(
+rgba(5,53,45,.76),
+rgba(18,100,84,.72)
+),
+url("https://images.unsplash.com/photo-1584982751601-97dcc096659c?auto=format&fit=crop&w=1800&q=85");
+
+background-size:cover;
+background-position:center;
+}
+
+.hero-content{
+position:relative;
+z-index:2;
+max-width:800px;
+margin:auto;
+}
+
+.eyebrow{
+display:inline-block;
+padding:7px 14px;
+border-radius:30px;
+background:rgba(255,255,255,.15);
+border:1px solid rgba(255,255,255,.25);
+font-size:12px;
+font-weight:800;
+letter-spacing:1px;
+}
+
+.hero h1{
+font-size:clamp(42px,6vw,65px);
+line-height:1.05;
+margin:20px 0;
+}
+
+.hero p{
+max-width:700px;
+margin:auto;
+font-size:18px;
+color:#e4f4ef;
+}
+
+
+/* GENERAL */
+
+section{
+padding:85px 20px;
+}
+
+.container{
+max-width:1120px;
+margin:auto;
+}
+
+.heading{
+max-width:760px;
+text-align:center;
+margin:0 auto 45px;
+}
+
+.heading span{
+color:#168a57;
+font-size:12px;
+font-weight:900;
+letter-spacing:2px;
+text-transform:uppercase;
+}
+
+.heading h2{
+color:#0b3830;
+font-size:40px;
+line-height:1.15;
+margin:8px 0;
+}
+
+.heading p{
+color:#64748b;
+}
+
+
+/* CONTACT CARDS */
+
+.contact-grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:20px;
+}
+
+.contact-card{
+background:white;
+border:1px solid #e5e7eb;
+border-radius:22px;
+padding:32px;
+text-align:center;
+transition:.3s;
+box-shadow:0 10px 30px rgba(15,60,50,.04);
+}
+
+.contact-card:hover{
+transform:translateY(-8px);
+box-shadow:0 20px 45px rgba(15,60,50,.1);
+}
+
+.icon{
+width:58px;
+height:58px;
+display:grid;
+place-items:center;
+margin:0 auto 18px;
+border-radius:17px;
+background:#e4f4ef;
+color:#126454;
+font-size:25px;
+}
+
+.contact-card h3{
+color:#0b3830;
+margin-bottom:8px;
+}
+
+.contact-card p,
+.contact-card a{
+color:#64748b;
+font-size:14px;
+}
+
+.contact-card a:hover{
+color:#126454;
+}
+
+
+/* MAP */
+
+.map-box{
+margin-top:25px;
+border-radius:24px;
+overflow:hidden;
+border:1px solid #e5e7eb;
+box-shadow:0 15px 40px rgba(15,60,50,.08);
+}
+
+.map-box iframe{
+width:100%;
+height:420px;
+border:0;
+display:block;
+}
+
+
+/* SOCIAL */
+
+.social{
+margin-top:25px;
+background:#111827;
+color:white;
+border-radius:22px;
+padding:35px;
+text-align:center;
+}
+
+.social h3{
+font-size:25px;
+margin-bottom:8px;
+}
+
+.social p{
+color:#cbd5e1;
+margin-bottom:20px;
+}
+
+.tiktok{
+display:inline-flex;
+padding:13px 22px;
+border-radius:10px;
+background:white;
+color:#111827;
+font-weight:800;
+transition:.25s;
+}
+
+.tiktok:hover{
+transform:translateY(-3px);
+}
+
+
+/* CTA */
+
+.cta{
+background:#eaf7f2;
+text-align:center;
+}
+
+.cta h2{
+color:#0b3830;
+font-size:35px;
+margin-bottom:10px;
+}
+
+.cta p{
+color:#64748b;
+margin-bottom:25px;
+}
+
+.buttons{
+display:flex;
+justify-content:center;
+flex-wrap:wrap;
+gap:12px;
+}
+
+.button{
+display:inline-flex;
+align-items:center;
+justify-content:center;
+padding:14px 20px;
+border-radius:10px;
+font-weight:800;
+transition:.25s;
+}
+
+.button:hover{
+transform:translateY(-3px);
+}
+
+.primary{
+background:#126454;
+color:white;
+}
+
+.whatsapp{
+background:#168a57;
+color:white;
+}
+
+.secondary{
+background:white;
+color:#126454;
+border:1px solid #126454;
+}
+
+
+/* FOOTER */
+
+footer{
+background:#092c26;
+color:#c9ddd8;
+padding:28px 20px;
+text-align:center;
+font-size:13px;
+}
+
+footer strong{
+color:white;
+}
+
+
+/* ANIMATION */
+
+.reveal{
+opacity:0;
+transform:translateY(30px);
+transition:
+opacity .8s ease,
+transform .8s ease;
+}
+
+.reveal.visible{
+opacity:1;
+transform:translateY(0);
+}
+
+
+/* MOBILE */
+
+@media(max-width:800px){
+
+nav{
+display:none;
+}
+
+.contact-grid{
+grid-template-columns:1fr;
+}
+
+.map-box iframe{
+height:350px;
+}
+
+}
+
+@media(max-width:560px){
+
+.hero{
+padding:75px 20px;
+}
+
+.hero h1{
+font-size:42px;
+}
+
+.hero p{
+font-size:15px;
+}
+
+section{
+padding:65px 20px;
+}
+
+.heading h2{
+font-size:31px;
+}
+
+.buttons{
+flex-direction:column;
+}
+
+.button{
+width:100%;
+}
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<header>
+
+<div class="nav">
+
+<a href="index.html" class="brand">
+
+<span class="logo">✚</span>
+
+<span>
+Olukayode Hospital
+<small>Convalescence Home</small>
+</span>
+
+</a>
+
+
+<nav>
+
+<a href="index.html">Home</a>
+
+<a href="about.html">About</a>
+
+<a href="services.html">Services</a>
+
+<a href="contact.html">Contact</a>
+
+</nav>
+
+</div>
+
+</header>
+
+
+
+<!-- HERO -->
+
+<section class="hero">
+
+<div class="hero-content">
+
+<span class="eyebrow">
+GET IN TOUCH
+</span>
+
+<h1>
+Contact Us
+</h1>
+
+<p>
+Reach Olukayode Hospital directly.
+Find our location, contact details and
+social media page below.
+</p>
+
+</div>
+
+</section>
+
+
+
+<main>
+
+
+<!-- CONTACT DETAILS -->
+
+<section>
+
+<div class="container">
+
+<div class="heading reveal">
+
+<span>
+Contact Information
+</span>
+
+<h2>
+We're Easy to Reach
+</h2>
+
+<p>
+Use any of the contact options below.
+</p>
+
+</div>
+
+
+<div class="contact-grid">
+
+
+<div class="contact-card reveal">
+
+<div class="icon">
+☎
+</div>
+
+<h3>
+Phone
+</h3>
+
+<a href="tel:08033602308">
+08033602308
+</a>
+
+</div>
+
+
+<div class="contact-card reveal">
+
+<div class="icon">
+✉
+</div>
+
+<h3>
+Email
+</h3>
+
+<a href="mailto:Akannifolawiyo5@gmail.com">
+Akannifolawiyo5@gmail.com
+</a>
+
+</div>
+
+
+<div class="contact-card reveal">
+
+<div class="icon">
+⌖
+</div>
+
+<h3>
+Location
+</h3>
+
+<p>
+39 Adepeju Street,<br>
+Mangoro, Ikeja,<br>
+Lagos, Nigeria
+</p>
+
+</div>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- MAP -->
+
+<section>
+
+<div class="container">
+
+<div class="heading reveal">
+
+<span>
+Find Us
+</span>
+
+<h2>
+Our Location
+</h2>
+
+<p>
+39 Adepeju Street, Mangoro, Ikeja, Lagos.
+</p>
+
+</div>
+
+
+<div class="map-box reveal">
+
+<iframe
+src="https://www.google.com/maps?q=39%20Adepeju%20Street%2C%20Mangoro%2C%20Ikeja%2C%20Lagos%2C%20Nigeria&output=embed"
+loading="lazy"
+allowfullscreen>
+</iframe>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- TIKTOK -->
+
+<section>
+
+<div class="container">
+
+<div class="social reveal">
+
+<h3>
+Follow Olukayode Hospital
+</h3>
+
+<p>
+Follow our TikTok page for updates and
+hospital-related content.
+</p>
+
+<a
+class="tiktok"
+href="https://www.tiktok.com/@doubledoctor2"
+target="_blank">
+
+TikTok — @doubledoctor2
+
+</a>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- CTA -->
+
+<section class="cta">
+
+<div class="container">
+
+<h2 class="reveal">
+Need to Contact Us?
+</h2>
+
+<p class="reveal">
+Choose your preferred way to reach us.
+</p>
+
+
+<div class="buttons reveal">
+
+<a
+class="button primary"
+href="tel:08033602308">
+
+Call Us
+
+</a>
+
+
+<a
+class="button whatsapp"
+href="https://wa.me/2348033602308"
+target="_blank">
+
+WhatsApp
+
+</a>
+
+
+<a
+class="button secondary"
+href="mailto:Akannifolawiyo5@gmail.com">
+
+Email Us
+
+</a>
+
+</div>
+
+</div>
+
+</section>
+
+
+</main>
+
+
+
+<footer>
+
+<strong>
+Olukayode Hospital
+</strong>
+
+<br>
+
+Convalescence Home
+
+<br><br>
+
+© 2026 Olukayode Hospital.
+All rights reserved.
+
+</footer>
+
+
+
+<script>
+
+const elements =
+document.querySelectorAll(".reveal");
+
+const observer =
+new IntersectionObserver(
+
+(entries) => {
+
+entries.forEach((entry) => {
+
+if(entry.isIntersecting){
+
+entry.target.classList.add("visible");
+
+observer.unobserve(entry.target);
+
+}
+
+});
+
+},
+
+{
+threshold:0.12
+}
+
+);
+
+elements.forEach((element) => {
+observer.observe(element);
+});
+
+</script>
+
+
+</body>
+
+</html>
