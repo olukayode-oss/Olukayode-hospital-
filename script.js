@@ -1,6 +1,13 @@
+/* =====================================================
+OLUKAYODE HOSPITAL
+INTERACTIONS + ANIMATIONS
+===================================================== */
+
 document.addEventListener("DOMContentLoaded", () => {
 
-    /* MOBILE MENU */
+    /* =================================================
+    MOBILE MENU
+    ================================================= */
 
     const menuBtn = document.getElementById("menuBtn");
     const navMenu = document.getElementById("navMenu");
@@ -9,51 +16,111 @@ document.addEventListener("DOMContentLoaded", () => {
 
         menuBtn.addEventListener("click", () => {
 
-            navMenu.classList.toggle("active");
+            const active =
+                navMenu.classList.toggle("active");
 
-            menuBtn.textContent =
-                navMenu.classList.contains("active")
-                    ? "×"
-                    : "☰";
+            menuBtn.classList.toggle(
+                "active",
+                active
+            );
+
+            menuBtn.setAttribute(
+                "aria-expanded",
+                active
+            );
+
+            document.body.classList.toggle(
+                "menu-open",
+                active
+            );
+
         });
 
 
-        navMenu.querySelectorAll("a").forEach(link => {
+        navMenu.querySelectorAll("a")
+            .forEach(link => {
 
-            link.addEventListener("click", () => {
+                link.addEventListener("click", () => {
 
-                navMenu.classList.remove("active");
+                    navMenu.classList.remove("active");
+                    menuBtn.classList.remove("active");
 
-                menuBtn.textContent = "☰";
+                    menuBtn.setAttribute(
+                        "aria-expanded",
+                        "false"
+                    );
+
+                    document.body.classList.remove(
+                        "menu-open"
+                    );
+
+                });
+
             });
-
-        });
 
     }
 
 
-    /* SCROLL REVEAL */
+    /* =================================================
+    NAVBAR SCROLL EFFECT
+    ================================================= */
+
+    const navbar =
+        document.getElementById("navbar");
+
+    function updateNavbar() {
+
+        if (!navbar) return;
+
+        navbar.classList.toggle(
+            "scrolled",
+            window.scrollY > 30
+        );
+
+    }
+
+    window.addEventListener(
+        "scroll",
+        updateNavbar,
+        { passive: true }
+    );
+
+    updateNavbar();
+
+
+    /* =================================================
+    SCROLL REVEAL
+    ================================================= */
 
     const revealElements =
         document.querySelectorAll(".reveal");
 
     const revealObserver =
-        new IntersectionObserver(entries => {
+        new IntersectionObserver(
+            entries => {
 
-            entries.forEach(entry => {
+                entries.forEach(entry => {
 
-                if (entry.isIntersecting) {
+                    if (entry.isIntersecting) {
 
-                    entry.target.classList.add("visible");
+                        entry.target.classList.add(
+                            "visible"
+                        );
 
-                    revealObserver.unobserve(entry.target);
-                }
+                        revealObserver.unobserve(
+                            entry.target
+                        );
 
-            });
+                    }
 
-        }, {
-            threshold: 0.12
-        });
+                });
+
+            },
+            {
+                threshold: 0.12,
+                rootMargin: "0px 0px -40px 0px"
+            }
+        );
 
 
     revealElements.forEach(element => {
@@ -63,79 +130,86 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 
-    /* COUNTERS */
+    /* =================================================
+    COUNTERS
+    ================================================= */
 
     const counters =
         document.querySelectorAll(".counter");
 
-    const counterObserver =
-        new IntersectionObserver(entries => {
+    function animateCounter(counter) {
 
-            entries.forEach(entry => {
+        const target =
+            Number(counter.dataset.target);
 
-                if (!entry.isIntersecting) return;
+        const duration = 1400;
 
-                const counter = entry.target;
+        const startTime =
+            performance.now();
 
-                if (counter.dataset.started) return;
+        function update(currentTime) {
 
-                counter.dataset.started = "true";
-
-                const target =
-                    Number(counter.dataset.target);
-
-                const suffix =
-                    counter.dataset.suffix || "";
-
-                const duration = 1600;
-
-                const startTime =
-                    performance.now();
-
-
-                function updateCounter(now) {
-
-                    const progress =
-                        Math.min(
-                            (now - startTime) / duration,
-                            1
-                        );
-
-                    const value =
-                        Math.floor(
-                            progress * target
-                        );
-
-                    counter.textContent =
-                        value + suffix;
-
-
-                    if (progress < 1) {
-
-                        requestAnimationFrame(
-                            updateCounter
-                        );
-
-                    } else {
-
-                        counter.textContent =
-                            target + suffix;
-                    }
-
-                }
-
-
-                requestAnimationFrame(
-                    updateCounter
+            const progress =
+                Math.min(
+                    (currentTime - startTime) /
+                    duration,
+                    1
                 );
 
-                counterObserver.unobserve(counter);
+            const eased =
+                1 - Math.pow(
+                    1 - progress,
+                    3
+                );
 
-            });
+            counter.textContent =
+                Math.floor(
+                    eased * target
+                );
 
-        }, {
-            threshold: 0.5
-        });
+            if (progress < 1) {
+
+                requestAnimationFrame(update);
+
+            } else {
+
+                counter.textContent =
+                    target;
+
+            }
+
+        }
+
+        requestAnimationFrame(update);
+
+    }
+
+
+    const counterObserver =
+        new IntersectionObserver(
+            entries => {
+
+                entries.forEach(entry => {
+
+                    if (entry.isIntersecting) {
+
+                        animateCounter(
+                            entry.target
+                        );
+
+                        counterObserver.unobserve(
+                            entry.target
+                        );
+
+                    }
+
+                });
+
+            },
+            {
+                threshold: .7
+            }
+        );
 
 
     counters.forEach(counter => {
@@ -145,107 +219,141 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 
-    /* FAQ */
+    /* =================================================
+    FAQ
+    ================================================= */
 
-    const faqQuestions =
-        document.querySelectorAll(".faq-question");
+    const faqItems =
+        document.querySelectorAll(".faq-item");
 
-    faqQuestions.forEach(question => {
+    faqItems.forEach(item => {
 
-        question.addEventListener("click", () => {
+        const question =
+            item.querySelector(".faq-question");
 
-            const item =
-                question.closest(".faq-item");
+        question.addEventListener(
+            "click",
+            () => {
 
-            const isActive =
-                item.classList.contains("active");
+                const wasActive =
+                    item.classList.contains("active");
 
 
-            document
-                .querySelectorAll(".faq-item")
-                .forEach(faq => {
+                faqItems.forEach(other => {
 
-                    faq.classList.remove("active");
+                    other.classList.remove(
+                        "active"
+                    );
 
                     const button =
-                        faq.querySelector(
+                        other.querySelector(
                             ".faq-question"
                         );
 
-                    if (button) {
-
-                        button.setAttribute(
-                            "aria-expanded",
-                            "false"
-                        );
-                    }
+                    button.setAttribute(
+                        "aria-expanded",
+                        "false"
+                    );
 
                 });
 
 
-            if (!isActive) {
+                if (!wasActive) {
 
-                item.classList.add("active");
+                    item.classList.add(
+                        "active"
+                    );
 
-                question.setAttribute(
-                    "aria-expanded",
-                    "true"
-                );
+                    question.setAttribute(
+                        "aria-expanded",
+                        "true"
+                    );
+
+                }
+
             }
-
-        });
+        );
 
     });
 
 
-    /* GALLERY LIGHTBOX */
+    /* =================================================
+    GALLERY LIGHTBOX
+    ================================================= */
 
     const lightbox =
         document.getElementById("lightbox");
 
     const lightboxImage =
-        document.getElementById("lightboxImage");
+        document.getElementById(
+            "lightboxImage"
+        );
 
     const closeLightbox =
-        document.getElementById("closeLightbox");
+        document.getElementById(
+            "closeLightbox"
+        );
+
+    const galleryItems =
+        document.querySelectorAll(
+            ".gallery-item"
+        );
 
 
-    document
-        .querySelectorAll(".gallery-item")
-        .forEach(item => {
+    function openLightbox(image) {
 
-            item.addEventListener("click", () => {
+        if (!lightbox || !lightboxImage)
+            return;
 
-                const image =
-                    item.dataset.image;
+        lightboxImage.src =
+            image;
 
-                if (!image) return;
+        lightbox.classList.add(
+            "active"
+        );
 
-                lightboxImage.src = image;
-
-                lightbox.classList.add("active");
-
-                document.body.style.overflow = "hidden";
-
-            });
-
-        });
-
-
-    function closeGallery() {
-
-        lightbox.classList.remove("active");
-
-        document.body.style.overflow = "";
+        document.body.style.overflow =
+            "hidden";
 
     }
+
+
+    function closeBox() {
+
+        if (!lightbox)
+            return;
+
+        lightbox.classList.remove(
+            "active"
+        );
+
+        document.body.style.overflow =
+            "";
+
+    }
+
+
+    galleryItems.forEach(item => {
+
+        item.addEventListener(
+            "click",
+            () => {
+
+                openLightbox(
+                    item.dataset.image
+                );
+
+            }
+        );
+
+    });
 
 
     if (closeLightbox) {
 
         closeLightbox.addEventListener(
             "click",
-            closeGallery
+            closeBox
         );
 
     }
@@ -253,203 +361,210 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (lightbox) {
 
-        lightbox.addEventListener("click", event => {
+        lightbox.addEventListener(
+            "click",
+            event => {
 
-            if (event.target === lightbox) {
+                if (
+                    event.target ===
+                    lightbox
+                ) {
 
-                closeGallery();
+                    closeBox();
+
+                }
+
             }
-
-        });
+        );
 
     }
 
 
-    document.addEventListener("keydown", event => {
+    document.addEventListener(
+        "keydown",
+        event => {
 
-        if (
-            event.key === "Escape" &&
-            lightbox &&
-            lightbox.classList.contains("active")
+            if (event.key === "Escape") {
+
+                closeBox();
+
+            }
+
+        }
+    );
+
+
+    /* =================================================
+    TESTIMONIAL SLIDER
+    ================================================= */
+
+    const track =
+        document.getElementById(
+            "testimonialTrack"
+        );
+
+    const prev =
+        document.getElementById(
+            "testimonialPrev"
+        );
+
+    const next =
+        document.getElementById(
+            "testimonialNext"
+        );
+
+    const dotsContainer =
+        document.getElementById(
+            "testimonialDots"
+        );
+
+    const cards =
+        document.querySelectorAll(
+            ".testimonial-card"
+        );
+
+
+    let currentSlide = 0;
+
+
+    function getSlidesVisible() {
+
+        if (window.innerWidth <= 600)
+            return 1;
+
+        if (window.innerWidth <= 1100)
+            return 2;
+
+        return 3;
+
+    }
+
+
+    function getMaxSlide() {
+
+        return Math.max(
+            0,
+            cards.length -
+            getSlidesVisible()
+        );
+
+    }
+
+
+    function buildDots() {
+
+        if (!dotsContainer)
+            return;
+
+        dotsContainer.innerHTML = "";
+
+        const total =
+            getMaxSlide() + 1;
+
+        for (
+            let i = 0;
+            i < total;
+            i++
         ) {
 
-            closeGallery();
-        }
-
-    });
-
-
-    /* TESTIMONIAL SLIDER */
-
-    const testimonialTrack =
-        document.getElementById("testimonialTrack");
-
-    const testimonialPrev =
-        document.getElementById("testimonialPrev");
-
-    const testimonialNext =
-        document.getElementById("testimonialNext");
-
-    const testimonialDots =
-        document.getElementById("testimonialDots");
-
-
-    if (testimonialTrack) {
-
-        const cards =
-            Array.from(
-                testimonialTrack.children
-            );
-
-        let currentSlide = 0;
-
-
-        function getVisibleCards() {
-
-            if (window.innerWidth <= 750) {
-
-                return 1;
-            }
-
-            if (window.innerWidth <= 1000) {
-
-                return 2;
-            }
-
-            return 3;
-        }
-
-
-        function getMaxSlide() {
-
-            return Math.max(
-                0,
-                cards.length -
-                getVisibleCards()
-            );
-        }
-
-
-        function createDots() {
-
-            testimonialDots.innerHTML = "";
-
-            const total =
-                getMaxSlide() + 1;
-
-            for (
-                let i = 0;
-                i < total;
-                i++
-            ) {
-
-                const dot =
-                    document.createElement("button");
-
-                dot.type = "button";
-
-                dot.className =
-                    "testimonial-dot";
-
-                dot.setAttribute(
-                    "aria-label",
-                    `Go to testimonial ${i + 1}`
+            const dot =
+                document.createElement(
+                    "button"
                 );
 
+            dot.type = "button";
 
-                dot.addEventListener("click", () => {
+            dot.className =
+                "testimonial-dot";
+
+            if (i === currentSlide) {
+
+                dot.classList.add(
+                    "active"
+                );
+
+            }
+
+            dot.addEventListener(
+                "click",
+                () => {
 
                     currentSlide = i;
 
                     updateSlider();
-                });
 
+                }
+            );
 
-                testimonialDots.appendChild(dot);
-
-            }
+            dotsContainer.appendChild(
+                dot
+            );
 
         }
 
+    }
 
-        function updateSlider() {
 
-            const maxSlide =
-                getMaxSlide();
+    function updateSlider() {
 
-            currentSlide =
-                Math.min(
-                    Math.max(currentSlide, 0),
-                    maxSlide
+        if (!track)
+            return;
+
+        const visible =
+            getSlidesVisible();
+
+        const cardWidth =
+            cards[0]?.getBoundingClientRect()
+                .width || 0;
+
+        const gap = 20;
+
+        const offset =
+            currentSlide *
+            (cardWidth + gap);
+
+        track.style.transform =
+            `translateX(-${offset}px)`;
+
+
+        if (dotsContainer) {
+
+            dotsContainer
+                .querySelectorAll(
+                    ".testimonial-dot"
+                )
+                .forEach(
+                    (dot, index) => {
+
+                        dot.classList.toggle(
+                            "active",
+                            index === currentSlide
+                        );
+
+                    }
                 );
 
-
-            const cardWidth =
-                cards[0].getBoundingClientRect().width;
-
-            const gap = 20;
-
-            testimonialTrack.style.transform =
-                `translateX(-${
-                    currentSlide *
-                    (cardWidth + gap)
-                }px)`;
-
-
-            testimonialDots
-                .querySelectorAll(".testimonial-dot")
-                .forEach((dot, index) => {
-
-                    dot.classList.toggle(
-                        "active",
-                        index === currentSlide
-                    );
-
-                });
-
         }
 
-
-        createDots();
-
-        updateSlider();
+    }
 
 
-        testimonialNext.addEventListener("click", () => {
+    if (next) {
 
-            const maxSlide =
-                getMaxSlide();
-
-            currentSlide =
-                currentSlide >= maxSlide
-                    ? 0
-                    : currentSlide + 1;
-
-            updateSlider();
-
-        });
-
-
-        testimonialPrev.addEventListener("click", () => {
-
-            const maxSlide =
-                getMaxSlide();
-
-            currentSlide =
-                currentSlide <= 0
-                    ? maxSlide
-                    : currentSlide - 1;
-
-            updateSlider();
-
-        });
-
-
-        window.addEventListener(
-            "resize",
+        next.addEventListener(
+            "click",
             () => {
 
-                createDots();
+                currentSlide++;
+
+                if (
+                    currentSlide >
+                    getMaxSlide()
+                ) {
+
+                    currentSlide = 0;
+
+                }
 
                 updateSlider();
 
@@ -459,10 +574,133 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    /* WHATSAPP FORM */
+    if (prev) {
+
+        prev.addEventListener(
+            "click",
+            () => {
+
+                currentSlide--;
+
+                if (currentSlide < 0) {
+
+                    currentSlide =
+                        getMaxSlide();
+
+                }
+
+                updateSlider();
+
+            }
+        );
+
+    }
+
+
+    buildDots();
+
+    updateSlider();
+
+
+    window.addEventListener(
+        "resize",
+        () => {
+
+            if (
+                currentSlide >
+                getMaxSlide()
+            ) {
+
+                currentSlide =
+                    getMaxSlide();
+
+            }
+
+            buildDots();
+            updateSlider();
+
+        }
+    );
+
+
+    /* =================================================
+    AUTO TESTIMONIAL
+    ================================================= */
+
+    let testimonialTimer =
+        setInterval(
+            () => {
+
+                if (
+                    document.hidden ||
+                    !track
+                ) return;
+
+                currentSlide++;
+
+                if (
+                    currentSlide >
+                    getMaxSlide()
+                ) {
+
+                    currentSlide = 0;
+
+                }
+
+                updateSlider();
+
+            },
+            6000
+        );
+
+
+    document.addEventListener(
+        "visibilitychange",
+        () => {
+
+            if (document.hidden) {
+
+                clearInterval(
+                    testimonialTimer
+                );
+
+            } else {
+
+                testimonialTimer =
+                    setInterval(
+                        () => {
+
+                            currentSlide++;
+
+                            if (
+                                currentSlide >
+                                getMaxSlide()
+                            ) {
+
+                                currentSlide = 0;
+
+                            }
+
+                            updateSlider();
+
+                        },
+                        6000
+                    );
+
+            }
+
+        }
+    );
+
+
+    /* =================================================
+    WHATSAPP FORM
+    ================================================= */
 
     const whatsappForm =
-        document.getElementById("whatsappForm");
+        document.getElementById(
+            "whatsappForm"
+        );
 
 
     if (whatsappForm) {
@@ -475,44 +713,36 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
                 const name =
-                    document
-                        .getElementById("name")
-                        .value
-                        .trim();
+                    document.getElementById(
+                        "name"
+                    ).value.trim();
 
                 const phone =
-                    document
-                        .getElementById("phone")
-                        .value
-                        .trim();
+                    document.getElementById(
+                        "phone"
+                    ).value.trim();
 
                 const subject =
-                    document
-                        .getElementById("subject")
-                        .value
-                        .trim();
+                    document.getElementById(
+                        "subject"
+                    ).value.trim();
 
                 const message =
-                    document
-                        .getElementById("message")
-                        .value
-                        .trim();
+                    document.getElementById(
+                        "message"
+                    ).value.trim();
 
 
                 const text =
-`Hello Olukayode Hospital,
-
-Name: ${name}
-Phone: ${phone}
-Subject: ${subject}
-
-Enquiry:
-${message}`;
+                    `Hello Olukayode Hospital.%0A%0A` +
+                    `Name: ${encodeURIComponent(name)}%0A` +
+                    `Phone: ${encodeURIComponent(phone)}%0A` +
+                    `Subject: ${encodeURIComponent(subject)}%0A%0A` +
+                    `${encodeURIComponent(message)}`;
 
 
                 const whatsappURL =
-                    "https://wa.me/2348033602308?text=" +
-                    encodeURIComponent(text);
+                    `https://wa.me/2348033602308?text=${text}`;
 
 
                 window.open(
@@ -526,49 +756,248 @@ ${message}`;
     }
 
 
-    /* BACK TO TOP */
+    /* =================================================
+    BACK TO TOP
+    ================================================= */
 
     const backToTop =
-        document.getElementById("backToTop");
+        document.getElementById(
+            "backToTop"
+        );
 
 
-    window.addEventListener("scroll", () => {
+    function updateBackToTop() {
 
-        if (window.scrollY > 500) {
+        if (!backToTop)
+            return;
 
-            backToTop.classList.add("show");
-
-        } else {
-
-            backToTop.classList.remove("show");
-        }
-
-    });
-
-
-    if (backToTop) {
-
-        backToTop.addEventListener("click", () => {
-
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth"
-            });
-
-        });
+        backToTop.classList.toggle(
+            "show",
+            window.scrollY > 600
+        );
 
     }
 
 
-    /* FOOTER YEAR */
+    window.addEventListener(
+        "scroll",
+        updateBackToTop,
+        { passive: true }
+    );
+
+
+    updateBackToTop();
+
+
+    if (backToTop) {
+
+        backToTop.addEventListener(
+            "click",
+            () => {
+
+                window.scrollTo({
+                    top: 0,
+                    behavior: "smooth"
+                });
+
+            }
+        );
+
+    }
+
+
+    /* =================================================
+    SUBTLE HERO PARALLAX
+    ================================================= */
+
+    const heroVisual =
+        document.querySelector(
+            ".hero-visual"
+        );
+
+    let ticking = false;
+
+
+    function heroParallax() {
+
+        if (!heroVisual)
+            return;
+
+        if (
+            window.innerWidth <= 850
+        ) {
+
+            heroVisual.style.transform =
+                "";
+
+            return;
+
+        }
+
+
+        const scroll =
+            window.scrollY;
+
+        if (scroll > 800)
+            return;
+
+        heroVisual.style.transform =
+            `translateY(${scroll * .055}px)`;
+
+    }
+
+
+    window.addEventListener(
+        "scroll",
+        () => {
+
+            if (!ticking) {
+
+                requestAnimationFrame(
+                    () => {
+
+                        heroParallax();
+
+                        ticking = false;
+
+                    }
+                );
+
+                ticking = true;
+
+            }
+
+        },
+        { passive: true }
+    );
+
+
+    /* =================================================
+    3D TILT-LIKE CARD DEPTH
+    ================================================= */
+
+    const interactiveCards =
+        document.querySelectorAll(
+            ".service-card, .stat-card"
+        );
+
+
+    interactiveCards.forEach(card => {
+
+        card.addEventListener(
+            "pointermove",
+            event => {
+
+                if (
+                    window.innerWidth < 850
+                )
+                    return;
+
+
+                const rect =
+                    card.getBoundingClientRect();
+
+                const x =
+                    event.clientX -
+                    rect.left;
+
+                const y =
+                    event.clientY -
+                    rect.top;
+
+                const rotateY =
+                    ((x / rect.width) - .5) * 4;
+
+                const rotateX =
+                    ((y / rect.height) - .5) * -4;
+
+
+                card.style.transform =
+                    `translateY(-8px)
+                     perspective(700px)
+                     rotateX(${rotateX}deg)
+                     rotateY(${rotateY}deg)`;
+
+            }
+        );
+
+
+        card.addEventListener(
+            "pointerleave",
+            () => {
+
+                card.style.transform =
+                    "";
+
+            }
+        );
+
+    });
+
+
+    /* =================================================
+    CURRENT YEAR
+    ================================================= */
 
     const year =
-        document.getElementById("year");
+        document.getElementById(
+            "year"
+        );
 
     if (year) {
 
         year.textContent =
             new Date().getFullYear();
+
     }
+
+
+    /* =================================================
+    SMOOTH ANCHOR SCROLL
+    ================================================= */
+
+    document
+        .querySelectorAll(
+            'a[href^="#"]'
+        )
+        .forEach(link => {
+
+            link.addEventListener(
+                "click",
+                event => {
+
+                    const targetID =
+                        link.getAttribute(
+                            "href"
+                        );
+
+                    if (
+                        !targetID ||
+                        targetID === "#"
+                    )
+                        return;
+
+
+                    const target =
+                        document.querySelector(
+                            targetID
+                        );
+
+                    if (!target)
+                        return;
+
+
+                    event.preventDefault();
+
+
+                    target.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start"
+                    });
+
+                }
+            );
+
+        });
 
 });
