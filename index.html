@@ -2,9 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <meta name="google-site-verification"
           content="yjI16uT-VcxHtCaCJ7nl1bPEVMBqZb3ib6hci8aJvCc">
@@ -15,9 +13,7 @@
           content="Olukayode Hospital — a comfortable environment for care, recovery and wellbeing.">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap"
           rel="stylesheet">
@@ -27,44 +23,52 @@
 
 <body>
 
-<!-- ================= TOP BAR ================= -->
+<!-- =====================================================
+TOP BAR
+===================================================== -->
 
 <div class="top-bar">
-    <span>24/7 Care & Support</span>
+    <div class="top-message">
+        <span class="status-dot"></span>
+        24/7 Care & Support
+    </div>
 
     <div class="top-links">
         <a href="tel:+2348033602308">☎ 0803 360 2308</a>
         <a href="mailto:Akannifolawiyo5@gmail.com">✉ Email Us</a>
         <a href="https://www.tiktok.com/@doubledoctor2"
            target="_blank"
-           rel="noopener">
-            ♪ TikTok
-        </a>
+           rel="noopener">♪ TikTok</a>
     </div>
 </div>
 
 
-<!-- ================= NAVBAR ================= -->
+<!-- =====================================================
+NAVBAR
+===================================================== -->
 
 <header class="navbar" id="navbar">
 
     <a href="#home" class="logo">
         <div class="logo-icon">✚</div>
 
-        <div>
+        <div class="logo-text">
             <strong>OLUKAYODE</strong>
             <span>HOSPITAL</span>
         </div>
     </a>
 
-    <button class="menu-btn"
-            id="menuBtn"
-            aria-label="Open menu"
-            aria-expanded="false"
-            type="button">
+    <button
+        class="menu-btn"
+        id="menuBtn"
+        type="button"
+        aria-label="Open navigation"
+        aria-expanded="false">
+
         <span></span>
         <span></span>
         <span></span>
+
     </button>
 
     <nav id="navMenu">
@@ -85,33 +89,39 @@
 </header>
 
 
-<!-- ================= EMERGENCY ================= -->
+<!-- =====================================================
+EMERGENCY BAR
+===================================================== -->
 
 <div class="emergency-bar">
-    <span>Need assistance?</span>
 
-    <strong>Contact Olukayode Hospital</strong>
+    <div>
+        <strong>Need assistance?</strong>
+        <span>We're here to help.</span>
+    </div>
 
     <a href="tel:+2348033602308">
-        Call 0803 360 2308
+        Call 0803 360 2308 →
     </a>
+
 </div>
 
 
-<!-- ================= HERO ================= -->
+<!-- =====================================================
+HERO
+===================================================== -->
 
 <section class="hero" id="home">
 
-    <div class="hero-orb orb-one"></div>
-    <div class="hero-orb orb-two"></div>
-
-    <div class="hero-grid"></div>
+    <div class="hero-glow hero-glow-one"></div>
+    <div class="hero-glow hero-glow-two"></div>
 
     <div class="hero-content reveal">
 
-        <span class="eyebrow">
+        <div class="eyebrow">
+            <span></span>
             WELCOME TO OLUKAYODE HOSPITAL
-        </span>
+        </div>
 
         <h1>
             Compassionate care.
@@ -119,8 +129,9 @@
         </h1>
 
         <p>
-            A calm, comfortable environment designed
-            around patient care, recovery and wellbeing.
+            A welcoming convalescence home focused on
+            comfort, care and wellbeing throughout the
+            recovery journey.
         </p>
 
         <div class="hero-buttons">
@@ -131,24 +142,28 @@
             </a>
 
             <a href="#about" class="btn btn-outline">
-                Discover Our Story
+                Discover Our Care
             </a>
 
         </div>
 
         <div class="hero-trust">
 
-            <div>
+            <div class="trust-item">
                 <strong>24/7</strong>
                 <span>Support</span>
             </div>
 
-            <div>
+            <div class="trust-divider"></div>
+
+            <div class="trust-item">
                 <strong>15+</strong>
                 <span>Years</span>
             </div>
 
-            <div>
+            <div class="trust-divider"></div>
+
+            <div class="trust-item">
                 <strong>100%</strong>
                 <span>Care Focus</span>
             </div>
@@ -158,80 +173,68 @@
     </div>
 
 
-    <!-- HERO VISUAL -->
+    <!-- =================================================
+    HERO VISUAL
+    ================================================= -->
 
     <div class="hero-visual reveal">
 
-        <div class="hero-glow"></div>
-
         <div class="hero-image-wrap">
 
-            <img src="IMG_7236.jpeg"
-                 alt="Olukayode Hospital building"
-                 class="hero-image">
+            <div class="image-decoration image-decoration-one"></div>
+            <div class="image-decoration image-decoration-two"></div>
 
-            <div class="image-overlay"></div>
+            <div class="image-frame">
 
-        </div>
+                <img
+                    src="IMG_7236.jpeg"
+                    alt="Olukayode Hospital building">
 
+                <div class="image-overlay"></div>
 
-        <!-- premium information card -->
+                <div class="image-label">
+                    <span class="label-icon">♥</span>
 
-        <div class="hero-card hero-card-main">
-
-            <div class="hero-card-icon">
-                ♥
-            </div>
-
-            <div>
-                <strong>Patient First</strong>
-                <span>Care with comfort</span>
-            </div>
-
-        </div>
-
-
-        <div class="hero-card hero-card-small">
-
-            <span class="pulse-dot"></span>
-
-            <div>
-                <strong>Available</strong>
-                <span>Care & Support</span>
-            </div>
-
-        </div>
-
-
-        <!-- CLEAN DOCTOR FIGURE -->
-
-        <div class="doctor-scene"
-             aria-hidden="true">
-
-            <div class="doctor-shadow"></div>
-
-            <div class="doctor">
-                <div class="doctor-head"></div>
-
-                <div class="doctor-hair"></div>
-
-                <div class="doctor-neck"></div>
-
-                <div class="doctor-body">
-
-                    <div class="doctor-pocket"></div>
-
-                    <div class="doctor-stethoscope">
-                        <span></span>
+                    <div>
+                        <strong>Quality Care</strong>
+                        <small>Patient-focused environment</small>
                     </div>
-
                 </div>
 
-                <div class="doctor-arm doctor-arm-left"></div>
-                <div class="doctor-arm doctor-arm-right"></div>
+            </div>
 
-                <div class="doctor-leg doctor-leg-left"></div>
-                <div class="doctor-leg doctor-leg-right"></div>
+
+            <!-- SINGLE WALKING DOCTOR -->
+
+            <div class="hero-doctor" aria-hidden="true">
+
+                <div class="doctor-shadow"></div>
+
+                <div class="doctor">
+
+                    <div class="doctor-head"></div>
+                    <div class="doctor-hair"></div>
+
+                    <div class="doctor-body">
+                        <div class="doctor-shirt"></div>
+                        <div class="doctor-coat-line"></div>
+                    </div>
+
+                    <div class="doctor-arm doctor-arm-left"></div>
+                    <div class="doctor-arm doctor-arm-right"></div>
+
+                    <div class="doctor-hand doctor-hand-left"></div>
+                    <div class="doctor-hand doctor-hand-right"></div>
+
+                    <div class="doctor-leg doctor-leg-left"></div>
+                    <div class="doctor-leg doctor-leg-right"></div>
+
+                    <div class="doctor-foot doctor-foot-left"></div>
+                    <div class="doctor-foot doctor-foot-right"></div>
+
+                    <div class="doctor-stethoscope"></div>
+
+                </div>
 
             </div>
 
@@ -242,58 +245,64 @@
 </section>
 
 
-<!-- ================= STATS ================= -->
+<!-- =====================================================
+STATS
+===================================================== -->
 
 <section class="stats-section">
 
     <div class="stat-card reveal">
-        <span class="stat-icon">✚</span>
-        <strong class="counter" data-target="15">0</strong>
+        <div class="stat-icon">✚</div>
+        <strong><span class="counter" data-target="15">0</span>+</strong>
         <span>Years of Service</span>
     </div>
 
     <div class="stat-card reveal">
-        <span class="stat-icon">♥</span>
-        <strong class="counter" data-target="100">0</strong>
+        <div class="stat-icon">♥</div>
+        <strong><span class="counter" data-target="100">0</span>+</strong>
         <span>Patients Supported</span>
     </div>
 
     <div class="stat-card reveal">
-        <span class="stat-icon">◷</span>
-        <strong class="counter" data-target="24">0</strong>
-        <span>Hour Support</span>
+        <div class="stat-icon">◷</div>
+        <strong><span class="counter" data-target="24">0</span>/7</strong>
+        <span>Care & Support</span>
     </div>
 
     <div class="stat-card reveal">
-        <span class="stat-icon">✓</span>
-        <strong class="counter" data-target="100">0</strong>
+        <div class="stat-icon">✓</div>
+        <strong><span class="counter" data-target="100">0</span>%</strong>
         <span>Commitment to Care</span>
     </div>
 
 </section>
 
 
-<!-- ================= ABOUT ================= -->
+<!-- =====================================================
+ABOUT
+===================================================== -->
 
 <section class="section about-section" id="about">
 
-    <div class="section-image reveal parallax-card">
+    <div class="about-image reveal">
 
         <div class="image-number">01</div>
 
-        <img src="IMG_7238.jpeg"
-             alt="Olukayode Hospital compound">
+        <img
+            src="IMG_7238.jpeg"
+            alt="Olukayode Hospital compound">
 
     </div>
 
     <div class="section-content reveal">
 
-        <span class="eyebrow">
+        <div class="eyebrow">
+            <span></span>
             ABOUT OLUKAYODE
-        </span>
+        </div>
 
         <h2>
-            A place where recovery feels comfortable.
+            A comfortable place for care and recovery.
         </h2>
 
         <p>
@@ -303,8 +312,9 @@
         </p>
 
         <p>
-            Our environment is designed around comfort,
-            cleanliness, accessibility and patient wellbeing.
+            From the environment to communication,
+            everything is designed with comfort,
+            cleanliness and wellbeing in mind.
         </p>
 
         <div class="about-points">
@@ -332,7 +342,7 @@
         </div>
 
         <a href="#contact" class="text-link">
-            Visit our facility →
+            Visit our facility <span>→</span>
         </a>
 
     </div>
@@ -340,24 +350,26 @@
 </section>
 
 
-<!-- ================= SERVICES ================= -->
+<!-- =====================================================
+SERVICES
+===================================================== -->
 
-<section class="section services-section"
-         id="services">
+<section class="section services-section" id="services">
 
     <div class="section-heading reveal">
 
-        <span class="eyebrow">
-            OUR SERVICES
-        </span>
+        <div class="eyebrow center">
+            <span></span>
+            WHAT WE OFFER
+        </div>
 
         <h2>
             Care designed around your needs.
         </h2>
 
         <p>
-            A welcoming environment focused on comfort,
-            support and recovery.
+            A supportive environment created to make
+            recovery more comfortable and reassuring.
         </p>
 
     </div>
@@ -367,8 +379,10 @@
 
         <article class="service-card reveal">
 
-            <div class="service-number">01</div>
-            <div class="service-icon">♥</div>
+            <div class="service-top">
+                <div class="service-icon">♥</div>
+                <span class="service-number">01</span>
+            </div>
 
             <h3>Convalescence Care</h3>
 
@@ -377,15 +391,17 @@
                 during recovery and rehabilitation.
             </p>
 
-            <span class="service-arrow">↗</span>
+            <div class="service-arrow">↗</div>
 
         </article>
 
 
         <article class="service-card reveal">
 
-            <div class="service-number">02</div>
-            <div class="service-icon">✚</div>
+            <div class="service-top">
+                <div class="service-icon">✚</div>
+                <span class="service-number">02</span>
+            </div>
 
             <h3>Patient Support</h3>
 
@@ -394,15 +410,17 @@
                 patient comfort and wellbeing.
             </p>
 
-            <span class="service-arrow">↗</span>
+            <div class="service-arrow">↗</div>
 
         </article>
 
 
         <article class="service-card reveal">
 
-            <div class="service-number">03</div>
-            <div class="service-icon">⌂</div>
+            <div class="service-top">
+                <div class="service-icon">⌂</div>
+                <span class="service-number">03</span>
+            </div>
 
             <h3>Comfortable Environment</h3>
 
@@ -411,15 +429,17 @@
                 encourage rest and recovery.
             </p>
 
-            <span class="service-arrow">↗</span>
+            <div class="service-arrow">↗</div>
 
         </article>
 
 
         <article class="service-card reveal">
 
-            <div class="service-number">04</div>
-            <div class="service-icon">☏</div>
+            <div class="service-top">
+                <div class="service-icon">☏</div>
+                <span class="service-number">04</span>
+            </div>
 
             <h3>Enquiries</h3>
 
@@ -428,7 +448,7 @@
                 information and available services.
             </p>
 
-            <span class="service-arrow">↗</span>
+            <div class="service-arrow">↗</div>
 
         </article>
 
@@ -437,46 +457,49 @@
 </section>
 
 
-<!-- ================= WHY US ================= -->
+<!-- =====================================================
+WHY US
+===================================================== -->
 
 <section class="why-section">
 
     <div class="why-content reveal">
 
-        <span class="eyebrow">
+        <div class="eyebrow">
+            <span></span>
             WHY CHOOSE US?
-        </span>
+        </div>
 
         <h2>
-            Care should feel human.
+            Where comfort becomes part of care.
         </h2>
 
         <p>
-            From the environment to communication,
-            our focus is creating a comfortable experience
-            for patients and families.
+            Recovery is more than treatment. The environment
+            around a patient can make the experience calmer,
+            easier and more reassuring.
         </p>
 
         <div class="why-list">
 
             <div>
                 <span>✓</span>
-                Comfortable patient environment
+                <strong>Comfortable patient environment</strong>
             </div>
 
             <div>
                 <span>✓</span>
-                Clean and welcoming surroundings
+                <strong>Clean and welcoming surroundings</strong>
             </div>
 
             <div>
                 <span>✓</span>
-                Easy communication
+                <strong>Easy communication</strong>
             </div>
 
             <div>
                 <span>✓</span>
-                Convenient location
+                <strong>Convenient location</strong>
             </div>
 
         </div>
@@ -484,31 +507,34 @@
     </div>
 
 
-    <div class="why-image reveal parallax-card">
+    <div class="why-image reveal">
 
-        <img src="images/passage.jpg"
-             alt="Hospital passage">
-
-        <div class="image-badge">
-            <strong>Comfort</strong>
-            <span>Designed around people</span>
+        <div class="why-image-card">
+            <span>OLUKAYODE</span>
+            <strong>Care with comfort.</strong>
         </div>
+
+        <img
+            src="images/passage.jpg"
+            alt="Olukayode Hospital interior">
 
     </div>
 
 </section>
 
 
-<!-- ================= GALLERY ================= -->
+<!-- =====================================================
+GALLERY
+===================================================== -->
 
-<section class="section gallery-section"
-         id="gallery">
+<section class="section gallery-section" id="gallery">
 
     <div class="section-heading reveal">
 
-        <span class="eyebrow">
-            OUR GALLERY
-        </span>
+        <div class="eyebrow center">
+            <span></span>
+            OUR ENVIRONMENT
+        </div>
 
         <h2>
             Take a look around.
@@ -523,13 +549,11 @@
 
     <div class="gallery-grid">
 
-        <button class="gallery-item reveal"
+        <button class="gallery-item gallery-large"
                 data-image="IMG_7218.jpeg"
                 type="button">
 
-            <img src="IMG_7218.jpeg"
-                 alt="Front view">
-
+            <img src="IMG_7218.jpeg" alt="Front view">
             <div class="gallery-caption">
                 <span>01</span>
                 <strong>Front View</strong>
@@ -538,13 +562,11 @@
         </button>
 
 
-        <button class="gallery-item reveal"
+        <button class="gallery-item"
                 data-image="IMG_7211.jpeg"
                 type="button">
 
-            <img src="IMG_7211.jpeg"
-                 alt="Passage">
-
+            <img src="IMG_7211.jpeg" alt="Passage">
             <div class="gallery-caption">
                 <span>02</span>
                 <strong>Passage</strong>
@@ -553,13 +575,11 @@
         </button>
 
 
-        <button class="gallery-item reveal"
+        <button class="gallery-item"
                 data-image="IMG_7237.jpeg"
                 type="button">
 
-            <img src="IMG_7237.jpeg"
-                 alt="Pharmacy">
-
+            <img src="IMG_7237.jpeg" alt="Pharmacy">
             <div class="gallery-caption">
                 <span>03</span>
                 <strong>Pharmacy</strong>
@@ -568,13 +588,11 @@
         </button>
 
 
-        <button class="gallery-item reveal"
+        <button class="gallery-item"
                 data-image="IMG_7217.jpeg"
                 type="button">
 
-            <img src="IMG_7217.jpeg"
-                 alt="Compound">
-
+            <img src="IMG_7217.jpeg" alt="Compound">
             <div class="gallery-caption">
                 <span>04</span>
                 <strong>Compound</strong>
@@ -583,13 +601,11 @@
         </button>
 
 
-        <button class="gallery-item reveal"
+        <button class="gallery-item"
                 data-image="images/outside.jpg"
                 type="button">
 
-            <img src="images/outside.jpg"
-                 alt="Outside view">
-
+            <img src="images/outside.jpg" alt="Outside view">
             <div class="gallery-caption">
                 <span>05</span>
                 <strong>Outside View</strong>
@@ -598,13 +614,11 @@
         </button>
 
 
-        <button class="gallery-item reveal"
+        <button class="gallery-item"
                 data-image="IMG_7219.jpeg"
                 type="button">
 
-            <img src="IMG_7219.jpeg"
-                 alt="Above view">
-
+            <img src="IMG_7219.jpeg" alt="Above view">
             <div class="gallery-caption">
                 <span>06</span>
                 <strong>Above View</strong>
@@ -613,13 +627,11 @@
         </button>
 
 
-        <button class="gallery-item reveal"
+        <button class="gallery-item"
                 data-image="IMG_5130.jpeg"
                 type="button">
 
-            <img src="IMG_5130.jpeg"
-                 alt="Hospital outing">
-
+            <img src="IMG_5130.jpeg" alt="Hospital outing">
             <div class="gallery-caption">
                 <span>07</span>
                 <strong>Outing</strong>
@@ -628,13 +640,11 @@
         </button>
 
 
-        <button class="gallery-item reveal"
+        <button class="gallery-item"
                 data-image="IMG_5144.jpeg"
                 type="button">
 
-            <img src="IMG_5144.jpeg"
-                 alt="Hospital outing">
-
+            <img src="IMG_5144.jpeg" alt="Hospital outing">
             <div class="gallery-caption">
                 <span>08</span>
                 <strong>Activities</strong>
@@ -643,16 +653,14 @@
         </button>
 
 
-        <button class="gallery-item reveal"
+        <button class="gallery-item"
                 data-image="IMG_5162.jpeg"
                 type="button">
 
-            <img src="IMG_5162.jpeg"
-                 alt="Hospital activities">
-
+            <img src="IMG_5162.jpeg" alt="Hospital activities">
             <div class="gallery-caption">
                 <span>09</span>
-                <strong>Activities</strong>
+                <strong>Hospital Life</strong>
             </div>
 
         </button>
@@ -662,19 +670,20 @@
 </section>
 
 
-<!-- ================= TESTIMONIALS ================= -->
+<!-- =====================================================
+TESTIMONIALS
+===================================================== -->
 
 <section class="testimonial-section">
 
     <div class="section-heading reveal">
 
-        <span class="eyebrow">
+        <div class="eyebrow center">
+            <span></span>
             PATIENT EXPERIENCE
-        </span>
+        </div>
 
-        <h2>
-            What people say.
-        </h2>
+        <h2>What people say.</h2>
 
         <p>
             Experiences shared by people connected
@@ -686,16 +695,16 @@
 
     <div class="testimonial-slider reveal">
 
-        <button class="testimonial-arrow"
-                id="testimonialPrev"
-                type="button">
+        <button
+            class="testimonial-arrow"
+            id="testimonialPrev"
+            type="button">
             ←
         </button>
 
         <div class="testimonial-viewport">
 
-            <div class="testimonial-track"
-                 id="testimonialTrack">
+            <div class="testimonial-track" id="testimonialTrack">
 
                 <article class="testimonial-card">
                     <div class="quote">“</div>
@@ -706,10 +715,9 @@
                         has been taken care of.
                     </p>
 
-                    <strong>
-                        — Mrs Adeyemi Oladipupo
-                    </strong>
+                    <strong>— Mrs Adeyemi Oladipupo</strong>
                 </article>
+
 
                 <article class="testimonial-card">
                     <div class="quote">“</div>
@@ -718,10 +726,9 @@
                         Add your testimonial here.
                     </p>
 
-                    <strong>
-                        — Patient / Family Member
-                    </strong>
+                    <strong>— Patient / Family Member</strong>
                 </article>
+
 
                 <article class="testimonial-card">
                     <div class="quote">“</div>
@@ -730,44 +737,57 @@
                         Add your testimonial here.
                     </p>
 
-                    <strong>
-                        — Patient / Family Member
-                    </strong>
+                    <strong>— Patient / Family Member</strong>
+                </article>
+
+
+                <article class="testimonial-card">
+                    <div class="quote">“</div>
+
+                    <p>
+                        Add your testimonial here.
+                    </p>
+
+                    <strong>— Patient / Family Member</strong>
                 </article>
 
             </div>
 
         </div>
 
-        <button class="testimonial-arrow"
-                id="testimonialNext"
-                type="button">
+        <button
+            class="testimonial-arrow"
+            id="testimonialNext"
+            type="button">
             →
         </button>
 
     </div>
 
-    <div class="testimonial-dots"
-         id="testimonialDots">
-    </div>
+    <div class="testimonial-dots" id="testimonialDots"></div>
 
 </section>
 
 
-<!-- ================= FAQ ================= -->
+<!-- =====================================================
+FAQ
+===================================================== -->
 
-<section class="section faq-section"
-         id="faq">
+<section class="section faq-section" id="faq">
 
     <div class="section-heading reveal">
 
-        <span class="eyebrow">
+        <div class="eyebrow center">
+            <span></span>
             FAQ
-        </span>
+        </div>
 
-        <h2>
-            Frequently asked questions.
-        </h2>
+        <h2>Frequently asked questions.</h2>
+
+        <p>
+            Find answers to common questions about
+            Olukayode Hospital.
+        </p>
 
     </div>
 
@@ -780,18 +800,16 @@
                     type="button"
                     aria-expanded="false">
 
-                <span>
-                    How can I contact Olukayode Hospital?
-                </span>
-
+                <span>How can I contact Olukayode Hospital?</span>
                 <b>+</b>
 
             </button>
 
             <div class="faq-answer">
                 <p>
-                    Call 0803 360 2308, send an email,
-                    or contact the hospital through WhatsApp.
+                    You can call 0803 360 2308,
+                    send an email, or contact the hospital
+                    through WhatsApp.
                 </p>
             </div>
 
@@ -804,18 +822,15 @@
                     type="button"
                     aria-expanded="false">
 
-                <span>
-                    Can I make an enquiry online?
-                </span>
-
+                <span>Can I make an enquiry online?</span>
                 <b>+</b>
 
             </button>
 
             <div class="faq-answer">
                 <p>
-                    Yes. Complete the enquiry form below
-                    and continue the conversation through WhatsApp.
+                    Yes. Complete the enquiry form and
+                    continue the conversation through WhatsApp.
                 </p>
             </div>
 
@@ -828,10 +843,7 @@
                     type="button"
                     aria-expanded="false">
 
-                <span>
-                    Where is the hospital located?
-                </span>
-
+                <span>Where is the hospital located?</span>
                 <b>+</b>
 
             </button>
@@ -852,18 +864,36 @@
                     type="button"
                     aria-expanded="false">
 
-                <span>
-                    How can I see more photos?
-                </span>
-
+                <span>How can I see more photos?</span>
                 <b>+</b>
 
             </button>
 
             <div class="faq-answer">
                 <p>
-                    Visit the gallery and tap any photo
-                    to view it in full screen.
+                    Visit the Gallery section and tap
+                    any photo to enlarge it.
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="faq-item reveal">
+
+            <button class="faq-question"
+                    type="button"
+                    aria-expanded="false">
+
+                <span>How can I contact the hospital on WhatsApp?</span>
+                <b>+</b>
+
+            </button>
+
+            <div class="faq-answer">
+                <p>
+                    Use the WhatsApp button on the website
+                    or submit an enquiry through the enquiry form.
                 </p>
             </div>
 
@@ -874,76 +904,79 @@
 </section>
 
 
-<!-- ================= ENQUIRY ================= -->
+<!-- =====================================================
+ENQUIRY
+===================================================== -->
 
-<section class="enquiry-section"
-         id="enquiry">
+<section class="enquiry-section" id="enquiry">
+
+    <div class="enquiry-decoration"></div>
 
     <div class="enquiry-content reveal">
 
-        <span class="eyebrow">
+        <div class="eyebrow light">
+            <span></span>
             SEND AN ENQUIRY
-        </span>
+        </div>
 
         <h2>
             How can we help you?
         </h2>
 
         <p>
-            Send your enquiry directly to Olukayode Hospital
-            through WhatsApp.
+            Tell us what you need and continue the
+            conversation with Olukayode Hospital on WhatsApp.
         </p>
 
-        <div class="contact-mini">
-
+        <div class="enquiry-contact">
+            <span>Prefer to call?</span>
             <a href="tel:+2348033602308">
-                ☎ 0803 360 2308
+                0803 360 2308 →
             </a>
-
-            <a href="mailto:Akannifolawiyo5@gmail.com">
-                ✉ Email us
-            </a>
-
         </div>
 
     </div>
 
 
-    <form id="whatsappForm"
-          class="enquiry-form reveal">
+    <form id="whatsappForm" class="enquiry-form reveal">
 
         <div class="form-row">
 
-            <input id="name"
-                   type="text"
-                   placeholder="Your name"
-                   required>
+            <input
+                type="text"
+                id="name"
+                placeholder="Your name"
+                required>
 
-            <input id="phone"
-                   type="tel"
-                   placeholder="Your phone number"
-                   required>
+            <input
+                type="tel"
+                id="phone"
+                placeholder="Your phone number"
+                required>
 
         </div>
 
-        <input id="subject"
-               type="text"
-               placeholder="Subject"
-               required>
+        <input
+            type="text"
+            id="subject"
+            placeholder="Subject"
+            required>
 
-        <textarea id="message"
-                  rows="6"
-                  placeholder="Write your enquiry..."
-                  required></textarea>
+        <textarea
+            id="message"
+            rows="6"
+            placeholder="Write your enquiry..."
+            required></textarea>
 
-        <button type="submit"
-                class="btn btn-primary">
+        <button
+            type="submit"
+            class="btn btn-light">
 
             Send on WhatsApp →
         </button>
 
         <small>
-            WhatsApp will open with your message ready to send.
+            Your message will open in WhatsApp before it is sent.
         </small>
 
     </form>
@@ -951,16 +984,18 @@
 </section>
 
 
-<!-- ================= LOCATION ================= -->
+<!-- =====================================================
+LOCATION
+===================================================== -->
 
-<section class="section location-section"
-         id="contact">
+<section class="section location-section" id="contact">
 
     <div class="location-info reveal">
 
-        <span class="eyebrow">
+        <div class="eyebrow">
+            <span></span>
             FIND US
-        </span>
+        </div>
 
         <h2>
             Visit Olukayode Hospital.
@@ -974,17 +1009,22 @@
         <div class="contact-details">
 
             <a href="tel:+2348033602308">
-                ☎ 0803 360 2308
+                <span>☎</span>
+                0803 360 2308
             </a>
 
             <a href="mailto:Akannifolawiyo5@gmail.com">
-                ✉ Akannifolawiyo5@gmail.com
+                <span>✉</span>
+                Akannifolawiyo5@gmail.com
             </a>
 
             <a href="https://www.tiktok.com/@doubledoctor2"
                target="_blank"
                rel="noopener">
-                ♪ @doubledoctor2
+
+                <span>♪</span>
+                @doubledoctor2
+
             </a>
 
         </div>
@@ -1005,34 +1045,51 @@
 </section>
 
 
-<!-- ================= FOOTER ================= -->
+<!-- =====================================================
+FOOTER
+===================================================== -->
 
 <footer>
 
     <div class="footer-main">
 
-        <div>
-            <h3>OLUKAYODE HOSPITAL</h3>
+        <div class="footer-brand">
 
-            <p>Convalescence Home</p>
+            <div class="footer-logo">
+                <div class="logo-icon">✚</div>
+
+                <div>
+                    <strong>OLUKAYODE</strong>
+                    <span>HOSPITAL</span>
+                </div>
+            </div>
+
+            <p>
+                Convalescence Home
+            </p>
 
             <p>
                 A comfortable environment for care
                 and recovery.
             </p>
+
         </div>
 
+
         <div>
-            <h4>Quick Links</h4>
+
+            <h4>Explore</h4>
 
             <a href="#home">Home</a>
             <a href="#about">About</a>
             <a href="#services">Services</a>
             <a href="#gallery">Gallery</a>
-            <a href="#contact">Contact</a>
+
         </div>
 
+
         <div>
+
             <h4>Contact</h4>
 
             <a href="tel:+2348033602308">
@@ -1040,7 +1097,7 @@
             </a>
 
             <a href="mailto:Akannifolawiyo5@gmail.com">
-                Email
+                Email Us
             </a>
 
             <a href="https://www.tiktok.com/@doubledoctor2"
@@ -1048,6 +1105,7 @@
                rel="noopener">
                 TikTok
             </a>
+
         </div>
 
     </div>
@@ -1055,53 +1113,70 @@
 
     <div class="footer-bottom">
 
-        © <span id="year"></span>
-        Olukayode Hospital.
-        All Rights Reserved.
+        <span>
+            © <span id="year"></span> Olukayode Hospital.
+            All Rights Reserved.
+        </span>
+
+        <span>
+            Care • Comfort • Recovery
+        </span>
 
     </div>
 
 </footer>
 
 
-<!-- ================= FLOATING BUTTONS ================= -->
+<!-- =====================================================
+FLOATING WHATSAPP
+===================================================== -->
 
-<a href="https://wa.me/2348033602308"
-   class="whatsapp-float"
-   target="_blank"
-   rel="noopener"
-   aria-label="Chat on WhatsApp">
+<a
+    href="https://wa.me/2348033602308"
+    class="whatsapp-float"
+    target="_blank"
+    rel="noopener"
+    aria-label="Chat on WhatsApp">
 
     <span>◉</span>
 
 </a>
 
-<button id="backToTop"
-        class="back-to-top"
-        type="button"
-        aria-label="Back to top">
+
+<!-- =====================================================
+BACK TO TOP
+===================================================== -->
+
+<button
+    id="backToTop"
+    class="back-to-top"
+    type="button"
+    aria-label="Back to top">
 
     ↑
 
 </button>
 
 
-<!-- ================= LIGHTBOX ================= -->
+<!-- =====================================================
+LIGHTBOX
+===================================================== -->
 
-<div id="lightbox"
-     class="lightbox">
+<div id="lightbox" class="lightbox">
 
-    <button id="closeLightbox"
-            type="button"
-            aria-label="Close">
+    <button
+        id="closeLightbox"
+        type="button"
+        aria-label="Close image">
 
         ×
 
     </button>
 
-    <img id="lightboxImage"
-         src=""
-         alt="Expanded gallery image">
+    <img
+        id="lightboxImage"
+        src=""
+        alt="Expanded gallery image">
 
 </div>
 
