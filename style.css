@@ -2084,3 +2084,55 @@ REDUCED MOTION
         transition-duration: .01ms !important;
     }
 }
+
+
+/* =====================================================
+   FOLLYHUB CREDIT
+===================================================== */
+
+.footer-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.follyhub-credit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    font-size: 11px;
+    color: #8fa9a1;
+}
+
+.follyhub-credit strong {
+    color: #8ee6c5;
+    font-weight: 800;
+}
+
+.follyhub-credit span {
+    opacity: .45;
+}
+
+.follyhub-credit a {
+    color: white;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.follyhub-credit a:hover {
+    color: #8ee6c5;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+
+    .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+        gap: 12px;
+    }
+
+}
