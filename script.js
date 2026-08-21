@@ -1,84 +1,104 @@
-/* =========================================================
-   OLUKAYODE HOSPITAL
-   COMPLETE WEBSITE JAVASCRIPT
-   3D MODULE ISOLATED SO IT CANNOT BREAK THE WEBSITE
-========================================================= */
-
 "use strict";
 
-/* =========================================================
-   GLOBAL HELPERS
-========================================================= */
+/*
+=========================================================
+OLUKAYODE HOSPITAL
+COMPLETE WEBSITE JAVASCRIPT
 
-const $ = (selector, parent = document) => parent.querySelector(selector);
+IMPORTANT:
+The website does NOT depend on Three.js anymore.
+
+The 3D anatomy models are loaded through isolated
+Sketchfab iframes.
+
+Therefore a 3D failure cannot kill the website.
+=========================================================
+*/
+
+
+/* =====================================================
+HELPERS
+===================================================== */
+
+const $ = (selector, parent = document) =>
+    parent.querySelector(selector);
+
 const $$ = (selector, parent = document) =>
     Array.from(parent.querySelectorAll(selector));
 
+
 function safe(fn) {
+
     try {
         fn();
     } catch (error) {
-        console.error("Olukayode Hospital:", error);
+        console.error(
+            "Olukayode feature error:",
+            error
+        );
     }
+
 }
 
 
-/* =========================================================
-   DOM READY
-========================================================= */
+/* =====================================================
+DOM READY
+===================================================== */
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    /* Each feature is isolated.
-       If one fails, the others continue working. */
-
     safe(initMobileMenu);
-    safe(initRevealAnimations);
+    safe(initReveal);
     safe(initCounters);
     safe(initFAQ);
     safe(initGallery);
     safe(initTestimonials);
-    safe(initWhatsAppForm);
+    safe(initWhatsApp);
     safe(initBackToTop);
     safe(initYear);
     safe(initBodyExplorer);
-    safe(init3DAnatomy);
+    safe(initSketchfabModels);
 
 });
 
 
-/* =========================================================
-   MOBILE MENU
-========================================================= */
+/* =====================================================
+MOBILE MENU
+===================================================== */
 
 function initMobileMenu() {
 
     const menuBtn = $("#menuBtn");
-    const navMenu = $("#navMenu");
+    const nav = $("#navMenu");
 
-    if (!menuBtn || !navMenu) return;
+    if (!menuBtn || !nav) return;
+
 
     menuBtn.addEventListener("click", () => {
 
-        navMenu.classList.toggle("active");
+        nav.classList.toggle("active");
 
-        const opened = navMenu.classList.contains("active");
+        const open =
+            nav.classList.contains("active");
 
         menuBtn.setAttribute(
             "aria-label",
-            opened ? "Close menu" : "Open menu"
+            open ? "Close menu" : "Open menu"
         );
+
+        menuBtn.textContent =
+            open ? "×" : "☰";
 
     });
 
-
-    /* Close menu after clicking a navigation link */
 
     $$("#navMenu a").forEach(link => {
 
         link.addEventListener("click", () => {
 
-            navMenu.classList.remove("active");
+            nav.classList.remove("active");
+
+            menuBtn.textContent = "☰";
 
             menuBtn.setAttribute(
                 "aria-label",
@@ -92,60 +112,65 @@ function initMobileMenu() {
 }
 
 
-/* =========================================================
-   SCROLL REVEAL ANIMATION
-========================================================= */
+/* =====================================================
+SCROLL REVEAL
+===================================================== */
 
-function initRevealAnimations() {
+function initReveal() {
 
     const elements = $$(".reveal");
 
     if (!elements.length) return;
 
 
-    /* Fallback if IntersectionObserver is unavailable */
-
     if (!("IntersectionObserver" in window)) {
 
-        elements.forEach(element => {
-            element.classList.add("visible");
-        });
+        elements.forEach(el =>
+            el.classList.add("visible")
+        );
 
         return;
     }
 
 
-    const observer = new IntersectionObserver(
-        (entries, observerInstance) => {
+    const observer =
+        new IntersectionObserver(
+            entries => {
 
-            entries.forEach(entry => {
+                entries.forEach(entry => {
 
-                if (entry.isIntersecting) {
+                    if (entry.isIntersecting) {
 
-                    entry.target.classList.add("visible");
+                        entry.target.classList.add(
+                            "visible"
+                        );
 
-                    observerInstance.unobserve(entry.target);
+                        observer.unobserve(
+                            entry.target
+                        );
 
-                }
+                    }
 
-            });
+                });
 
-        },
-        {
-            threshold: 0.12,
-            rootMargin: "0px 0px -40px 0px"
-        }
+            },
+            {
+                threshold: 0.12,
+                rootMargin: "0px 0px -40px 0px"
+            }
+        );
+
+
+    elements.forEach(el =>
+        observer.observe(el)
     );
-
-
-    elements.forEach(element => observer.observe(element));
 
 }
 
 
-/* =========================================================
-   COUNTERS
-========================================================= */
+/* =====================================================
+COUNTERS
+===================================================== */
 
 function initCounters() {
 
@@ -154,31 +179,33 @@ function initCounters() {
     if (!counters.length) return;
 
 
-    const animateCounter = counter => {
+    function animate(counter) {
 
-        const target = Number(counter.dataset.target);
+        const target =
+            Number(counter.dataset.target);
 
         if (!Number.isFinite(target)) return;
 
-        const duration = 1600;
-        const startTime = performance.now();
+
+        const duration = 1500;
+        const start = performance.now();
 
 
-        function update(currentTime) {
+        function update(time) {
 
-            const elapsed = currentTime - startTime;
+            const progress =
+                Math.min(
+                    (time - start) / duration,
+                    1
+                );
 
-            const progress = Math.min(elapsed / duration, 1);
-
-            /* Smooth easing */
 
             const eased =
                 1 - Math.pow(1 - progress, 3);
 
-            const current =
-                Math.floor(target * eased);
 
-            counter.textContent = current;
+            counter.textContent =
+                Math.floor(target * eased);
 
 
             if (progress < 1) {
@@ -196,52 +223,59 @@ function initCounters() {
 
         requestAnimationFrame(update);
 
-    };
+    }
 
 
     if (!("IntersectionObserver" in window)) {
 
-        counters.forEach(animateCounter);
+        counters.forEach(animate);
 
         return;
-
     }
 
 
-    const observer = new IntersectionObserver(
-        entries => {
+    const observer =
+        new IntersectionObserver(
+            entries => {
 
-            entries.forEach(entry => {
+                entries.forEach(entry => {
 
-                if (entry.isIntersecting) {
+                    if (entry.isIntersecting) {
 
-                    animateCounter(entry.target);
+                        animate(entry.target);
 
-                    observer.unobserve(entry.target);
+                        observer.unobserve(
+                            entry.target
+                        );
 
-                }
+                    }
 
-            });
+                });
 
-        },
-        {
-            threshold: 0.5
-        }
+            },
+            {
+                threshold: .5
+            }
+        );
+
+
+    counters.forEach(counter =>
+        observer.observe(counter)
     );
-
-
-    counters.forEach(counter => observer.observe(counter));
 
 }
 
 
-/* =========================================================
-   FAQ
-========================================================= */
+/* =====================================================
+FAQ
+
+THIS FIXES THE FAQ ISSUE.
+===================================================== */
 
 function initFAQ() {
 
-    const questions = $$(".faq-question");
+    const questions =
+        $$(".faq-question");
 
     if (!questions.length) return;
 
@@ -250,38 +284,54 @@ function initFAQ() {
 
         question.addEventListener("click", () => {
 
-            const item = question.closest(".faq-item");
+            const item =
+                question.closest(".faq-item");
 
             if (!item) return;
 
 
-            const answer = $(".faq-answer", item);
-
-            if (!answer) return;
-
-
-            const isOpen =
+            const wasOpen =
                 item.classList.contains("active");
 
 
-            /* Close all other FAQ items */
+            /* Close every other question */
 
-            $$(".faq-item").forEach(otherItem => {
+            $$(".faq-item").forEach(other => {
 
-                if (otherItem !== item) {
+                if (other !== item) {
 
-                    otherItem.classList.remove("active");
+                    other.classList.remove(
+                        "active"
+                    );
+
+                    const otherButton =
+                        $(".faq-question", other);
+
+                    if (otherButton) {
+
+                        otherButton.setAttribute(
+                            "aria-expanded",
+                            "false"
+                        );
+
+                    }
 
                 }
 
             });
 
 
-            /* Open / close selected item */
+            /* Toggle clicked question */
 
             item.classList.toggle(
                 "active",
-                !isOpen
+                !wasOpen
+            );
+
+
+            question.setAttribute(
+                "aria-expanded",
+                String(!wasOpen)
             );
 
         });
@@ -291,48 +341,49 @@ function initFAQ() {
 }
 
 
-/* =========================================================
-   GALLERY + LIGHTBOX
-========================================================= */
+/* =====================================================
+GALLERY
+===================================================== */
 
 function initGallery() {
 
-    const galleryItems = $$(".gallery-item");
+    const items =
+        $$(".gallery-item");
 
-    const lightbox = $("#lightbox");
-    const lightboxImage = $("#lightboxImage");
-    const closeLightbox = $("#closeLightbox");
+    const lightbox =
+        $("#lightbox");
 
-    if (!galleryItems.length) return;
+    const image =
+        $("#lightboxImage");
+
+    const closeButton =
+        $("#closeLightbox");
 
 
-    galleryItems.forEach(item => {
+    if (!items.length || !lightbox || !image) {
+        return;
+    }
+
+
+    items.forEach(item => {
 
         item.addEventListener("click", () => {
 
-            const image =
+            const source =
                 item.dataset.image ||
                 $("img", item)?.src;
 
-            if (!image) return;
+            if (!source) return;
 
 
-            if (lightboxImage) {
+            image.src = source;
 
-                lightboxImage.src = image;
+            lightbox.classList.add(
+                "active"
+            );
 
-            }
-
-
-            if (lightbox) {
-
-                lightbox.classList.add("active");
-
-                document.body.classList.add(
-                    "lightbox-open"
-                );
-
-            }
+            document.body.style.overflow =
+                "hidden";
 
         });
 
@@ -341,22 +392,33 @@ function initGallery() {
 
     function close() {
 
-        if (lightbox) {
-
-            lightbox.classList.remove("active");
-
-        }
-
-        document.body.classList.remove(
-            "lightbox-open"
+        lightbox.classList.remove(
+            "active"
         );
+
+        document.body.style.overflow =
+            "";
+
+        setTimeout(() => {
+
+            if (
+                !lightbox.classList.contains(
+                    "active"
+                )
+            ) {
+
+                image.src = "";
+
+            }
+
+        }, 300);
 
     }
 
 
-    if (closeLightbox) {
+    if (closeButton) {
 
-        closeLightbox.addEventListener(
+        closeButton.addEventListener(
             "click",
             close
         );
@@ -364,44 +426,59 @@ function initGallery() {
     }
 
 
-    if (lightbox) {
+    lightbox.addEventListener(
+        "click",
+        event => {
 
-        lightbox.addEventListener("click", event => {
-
-            if (event.target === lightbox) {
+            if (
+                event.target === lightbox
+            ) {
 
                 close();
 
             }
 
-        });
+        }
+    );
 
-    }
 
+    document.addEventListener(
+        "keydown",
+        event => {
 
-    document.addEventListener("keydown", event => {
+            if (
+                event.key === "Escape" &&
+                lightbox.classList.contains("active")
+            ) {
 
-        if (event.key === "Escape") {
+                close();
 
-            close();
+            }
 
         }
-
-    });
+    );
 
 }
 
 
-/* =========================================================
-   TESTIMONIAL CAROUSEL
-========================================================= */
+/* =====================================================
+TESTIMONIALS
+===================================================== */
 
 function initTestimonials() {
 
-    const track = $("#testimonialTrack");
-    const prev = $("#testimonialPrev");
-    const next = $("#testimonialNext");
-    const dotsContainer = $("#testimonialDots");
+    const track =
+        $("#testimonialTrack");
+
+    const previous =
+        $("#testimonialPrev");
+
+    const next =
+        $("#testimonialNext");
+
+    const dots =
+        $("#testimonialDots");
+
 
     if (!track) return;
 
@@ -412,10 +489,10 @@ function initTestimonials() {
     if (!cards.length) return;
 
 
-    let currentIndex = 0;
+    let index = 0;
 
 
-    function getVisibleCards() {
+    function visibleCards() {
 
         if (window.innerWidth <= 600) {
             return 1;
@@ -430,56 +507,46 @@ function initTestimonials() {
     }
 
 
-    function getMaxIndex() {
+    function maxIndex() {
 
         return Math.max(
             0,
-            cards.length - getVisibleCards()
+            cards.length - visibleCards()
         );
 
     }
 
 
-    function updateSlider() {
+    function update() {
 
         const visible =
-            getVisibleCards();
+            visibleCards();
 
         const max =
-            getMaxIndex();
+            maxIndex();
 
 
-        if (currentIndex > max) {
-
-            currentIndex = max;
-
+        if (index > max) {
+            index = max;
         }
 
 
-        /*
-          Calculate movement using the actual
-          card width rather than a hard-coded value.
-        */
-
-        if (cards[0]) {
-
-            const cardWidth =
-                cards[0].getBoundingClientRect().width;
-
-            const gap =
-                parseFloat(
-                    getComputedStyle(track).gap
-                ) || 0;
-
-            const offset =
-                currentIndex *
-                (cardWidth + gap);
+        const width =
+            cards[0].getBoundingClientRect().width;
 
 
-            track.style.transform =
-                `translateX(-${offset}px)`;
+        const gap =
+            parseFloat(
+                getComputedStyle(track).gap
+            ) || 0;
 
-        }
+
+        const offset =
+            index * (width + gap);
+
+
+        track.style.transform =
+            `translateX(-${offset}px)`;
 
 
         updateDots();
@@ -489,17 +556,21 @@ function initTestimonials() {
 
     function updateDots() {
 
-        if (!dotsContainer) return;
+        if (!dots) return;
 
 
-        dotsContainer.innerHTML = "";
+        dots.innerHTML = "";
 
 
         const total =
-            getMaxIndex() + 1;
+            maxIndex() + 1;
 
 
-        for (let i = 0; i < total; i++) {
+        for (
+            let i = 0;
+            i < total;
+            i++
+        ) {
 
             const dot =
                 document.createElement("button");
@@ -511,9 +582,11 @@ function initTestimonials() {
                 "testimonial-dot";
 
 
-            if (i === currentIndex) {
+            if (i === index) {
 
-                dot.classList.add("active");
+                dot.classList.add(
+                    "active"
+                );
 
             }
 
@@ -524,16 +597,19 @@ function initTestimonials() {
             );
 
 
-            dot.addEventListener("click", () => {
+            dot.addEventListener(
+                "click",
+                () => {
 
-                currentIndex = i;
+                    index = i;
 
-                updateSlider();
+                    update();
 
-            });
+                }
+            );
 
 
-            dotsContainer.appendChild(dot);
+            dots.appendChild(dot);
 
         }
 
@@ -542,98 +618,112 @@ function initTestimonials() {
 
     if (next) {
 
-        next.addEventListener("click", () => {
+        next.addEventListener(
+            "click",
+            () => {
 
-            const max =
-                getMaxIndex();
+                const max =
+                    maxIndex();
 
-            currentIndex =
-                currentIndex >= max
-                    ? 0
-                    : currentIndex + 1;
+                index =
+                    index >= max
+                        ? 0
+                        : index + 1;
 
-            updateSlider();
+                update();
 
-        });
+            }
+        );
 
     }
 
 
-    if (prev) {
+    if (previous) {
 
-        prev.addEventListener("click", () => {
+        previous.addEventListener(
+            "click",
+            () => {
 
-            const max =
-                getMaxIndex();
+                const max =
+                    maxIndex();
 
-            currentIndex =
-                currentIndex <= 0
-                    ? max
-                    : currentIndex - 1;
+                index =
+                    index <= 0
+                        ? max
+                        : index - 1;
 
-            updateSlider();
+                update();
 
-        });
+            }
+        );
 
     }
 
 
     window.addEventListener(
         "resize",
-        updateSlider
+        update
     );
 
 
-    updateSlider();
+    update();
 
 }
 
 
-/* =========================================================
-   WHATSAPP ENQUIRY FORM
-========================================================= */
+/* =====================================================
+WHATSAPP
+===================================================== */
 
-function initWhatsAppForm() {
+function initWhatsApp() {
 
-    const form = $("#whatsappForm");
+    const form =
+        $("#whatsappForm");
 
     if (!form) return;
 
 
-    form.addEventListener("submit", event => {
+    form.addEventListener(
+        "submit",
+        event => {
 
-        event.preventDefault();
-
-
-        const name =
-            $("#name")?.value.trim() || "";
-
-        const phone =
-            $("#phone")?.value.trim() || "";
-
-        const subject =
-            $("#subject")?.value.trim() || "";
-
-        const message =
-            $("#message")?.value.trim() || "";
+            event.preventDefault();
 
 
-        if (!name || !phone || !subject || !message) {
+            const name =
+                $("#name")?.value.trim() || "";
 
-            alert(
-                "Please complete all fields before continuing."
-            );
+            const phone =
+                $("#phone")?.value.trim() || "";
 
-            return;
+            const subject =
+                $("#subject")?.value.trim() || "";
 
-        }
-
-
-        const whatsappNumber =
-            "2348033602308";
+            const message =
+                $("#message")?.value.trim() || "";
 
 
-        const text =
+            if (
+                !name ||
+                !phone ||
+                !subject ||
+                !message
+            ) {
+
+                alert(
+                    "Please complete all fields before continuing."
+                );
+
+                return;
+
+            }
+
+
+            const number =
+                "2348033602308";
+
+
+            const text =
 `Hello Olukayode Hospital,
 
 My name is ${name}.
@@ -646,43 +736,40 @@ Enquiry:
 ${message}`;
 
 
-        const whatsappURL =
-            `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(text)}`;
+            const url =
+                `https://wa.me/${number}?text=${encodeURIComponent(text)}`;
 
 
-        window.open(
-            whatsappURL,
-            "_blank",
-            "noopener,noreferrer"
-        );
+            window.open(
+                url,
+                "_blank",
+                "noopener,noreferrer"
+            );
 
-    });
+        }
+    );
 
 }
 
 
-/* =========================================================
-   BACK TO TOP
-========================================================= */
+/* =====================================================
+BACK TO TOP
+===================================================== */
 
 function initBackToTop() {
 
-    const button = $("#backToTop");
+    const button =
+        $("#backToTop");
 
     if (!button) return;
 
 
     function update() {
 
-        if (window.scrollY > 500) {
-
-            button.classList.add("show");
-
-        } else {
-
-            button.classList.remove("show");
-
-        }
+        button.classList.toggle(
+            "show",
+            window.scrollY > 500
+        );
 
     }
 
@@ -690,20 +777,21 @@ function initBackToTop() {
     window.addEventListener(
         "scroll",
         update,
-        {
-            passive: true
-        }
+        { passive: true }
     );
 
 
-    button.addEventListener("click", () => {
+    button.addEventListener(
+        "click",
+        () => {
 
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
 
-    });
+        }
+    );
 
 
     update();
@@ -711,13 +799,14 @@ function initBackToTop() {
 }
 
 
-/* =========================================================
-   FOOTER YEAR
-========================================================= */
+/* =====================================================
+YEAR
+===================================================== */
 
 function initYear() {
 
-    const year = $("#year");
+    const year =
+        $("#year");
 
     if (year) {
 
@@ -729,9 +818,9 @@ function initYear() {
 }
 
 
-/* =========================================================
-   HUMAN BODY INFORMATION
-========================================================= */
+/* =====================================================
+BODY INFORMATION
+===================================================== */
 
 function initBodyExplorer() {
 
@@ -751,101 +840,54 @@ function initBodyExplorer() {
     if (!buttons.length) return;
 
 
-    const anatomyData = {
+    const data = {
 
         brain: {
-
             title: "Brain",
-
             description:
                 "The brain is the main organ of the nervous system. It helps control movement, senses, memory, thinking and many automatic body functions.",
-
-            system:
-                "Nervous system",
-
-            focus:
-                "Control & coordination"
-
+            system: "Nervous system",
+            focus: "Control & coordination"
         },
-
 
         heart: {
-
             title: "Heart",
-
             description:
                 "The heart is a muscular organ that pumps blood around the body through the circulatory system.",
-
-            system:
-                "Circulatory system",
-
-            focus:
-                "Blood circulation"
-
+            system: "Circulatory system",
+            focus: "Blood circulation"
         },
-
 
         lungs: {
-
             title: "Lungs",
-
             description:
                 "The lungs are organs of the respiratory system. They help exchange oxygen and carbon dioxide during breathing.",
-
-            system:
-                "Respiratory system",
-
-            focus:
-                "Gas exchange"
-
+            system: "Respiratory system",
+            focus: "Gas exchange"
         },
-
 
         stomach: {
-
             title: "Digestive System",
-
             description:
                 "The digestive system breaks food down into nutrients that the body can absorb and use.",
-
-            system:
-                "Digestive system",
-
-            focus:
-                "Digestion"
-
+            system: "Digestive system",
+            focus: "Digestion"
         },
-
 
         bones: {
-
             title: "Skeletal System",
-
             description:
                 "The skeletal system provides structural support, protects important organs and works with muscles to enable movement.",
-
-            system:
-                "Skeletal system",
-
-            focus:
-                "Support & movement"
-
+            system: "Skeletal system",
+            focus: "Support & movement"
         },
 
-
         muscles: {
-
             title: "Muscular System",
-
             description:
-                "Muscles allow the body to move and also contribute to posture and other important functions.",
-
-            system:
-                "Muscular system",
-
-            focus:
-                "Movement"
-
+                "Muscles allow the body to move and contribute to posture and other important functions.",
+            system: "Muscular system",
+            focus: "Movement"
         }
 
     };
@@ -853,10 +895,10 @@ function initBodyExplorer() {
 
     function selectPart(part) {
 
-        const data =
-            anatomyData[part];
+        const selected =
+            data[part];
 
-        if (!data) return;
+        if (!selected) return;
 
 
         buttons.forEach(button => {
@@ -872,7 +914,7 @@ function initBodyExplorer() {
         if (title) {
 
             title.textContent =
-                data.title;
+                selected.title;
 
         }
 
@@ -880,7 +922,7 @@ function initBodyExplorer() {
         if (description) {
 
             description.textContent =
-                data.description;
+                selected.description;
 
         }
 
@@ -890,1210 +932,349 @@ function initBodyExplorer() {
             facts.innerHTML = `
 
                 <div>
-
                     <span>System</span>
-
                     <strong>
-                        ${data.system}
+                        ${selected.system}
                     </strong>
-
                 </div>
 
                 <div>
-
                     <span>Focus</span>
-
                     <strong>
-                        ${data.focus}
+                        ${selected.focus}
                     </strong>
-
                 </div>
 
             `;
 
         }
-
-
-        /* Tell the 3D viewer which area is selected */
-
-        window.dispatchEvent(
-            new CustomEvent(
-                "olukayode:body-part",
-                {
-                    detail: {
-                        part
-                    }
-                }
-            )
-        );
 
     }
 
 
     buttons.forEach(button => {
 
-        button.addEventListener("click", () => {
+        button.addEventListener(
+            "click",
+            () => {
 
-            selectPart(
-                button.dataset.part
-            );
+                selectPart(
+                    button.dataset.part
+                );
 
-        });
+            }
+        );
 
     });
 
-
-    /* Initial state */
 
     selectPart("brain");
 
 }
 
 
-/* =========================================================
-   3D ANATOMY
-=========================================================
+/* =====================================================
+SKETCHFAB 3D MODEL SYSTEM
+=====================================================
 
-   IMPORTANT:
+No Three.js.
+No dynamic module.
+No external JS dependency.
 
-   There is NO static Three.js import at the top of this file.
+The actual 3D viewer is Sketchfab.
 
-   That means:
+If one iframe fails, the rest of the website
+continues normally.
+===================================================== */
 
-   - If Three.js loads -> 3D starts.
-   - If Three.js fails -> website continues.
-   - If OrbitControls fails -> website continues.
-   - If WebGL is unavailable -> website continues.
-   - If the model fails -> website continues.
-========================================================= */
+function initSketchfabModels() {
 
-async function init3DAnatomy() {
+    const male =
+        $("#maleModel");
 
-    const container =
-        $("#anatomyCanvas");
+    const female =
+        $("#femaleModel");
+
+    const buttons =
+        $$(".model-btn");
 
     const loader =
         $("#anatomyLoader");
 
+    const rotateLeft =
+        $("#rotateLeft");
 
-    if (!container) return;
+    const rotateRight =
+        $("#rotateRight");
 
-
-    /*
-      First make the 3D area safe.
-
-      If JavaScript / WebGL / CDN fails,
-      we display a fallback instead of breaking
-      the rest of the website.
-    */
-
-    function showFallback(message) {
-
-        if (loader) {
-
-            loader.innerHTML = `
-
-                <div class="loader-ring"></div>
-
-                <span>
-                    ${message}
-                </span>
-
-            `;
-
-        }
+    const reset =
+        $("#resetView");
 
 
-        container.classList.add(
-            "three-fallback"
-        );
-
-    }
-
-
-    /*
-      Check WebGL before loading Three.js.
-    */
-
-    let canvas;
-
-    try {
-
-        canvas =
-            document.createElement("canvas");
-
-        const gl =
-            canvas.getContext("webgl2") ||
-            canvas.getContext("webgl");
-
-
-        if (!gl) {
-
-            showFallback(
-                "Interactive 3D unavailable on this device"
-            );
-
-            return;
-
-        }
-
-    } catch (error) {
-
-        console.warn(
-            "WebGL unavailable:",
-            error
-        );
-
-        showFallback(
-            "Interactive 3D unavailable"
-        );
-
+    if (!male || !female || !buttons.length) {
         return;
-
     }
 
 
-    /*
-      Dynamic imports.
+    /* =================================================
+    MODEL SWITCH
+    ================================================= */
 
-      These are intentionally inside try/catch.
+    function switchModel(model) {
 
-      A failed CDN request therefore cannot
-      terminate the rest of script.js.
-    */
-
-    let THREE;
-    let OrbitControls;
+        const isFemale =
+            model === "female";
 
 
-    try {
-
-        THREE = await import(
-            "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js"
-        );
-
-    } catch (error) {
-
-        console.warn(
-            "Three.js could not load:",
-            error
-        );
-
-        showFallback(
-            "3D anatomy is temporarily unavailable"
-        );
-
-        return;
-
-    }
-
-
-    try {
-
-        const controlsModule =
-            await import(
-                "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/controls/OrbitControls.js"
-            );
-
-        OrbitControls =
-            controlsModule.OrbitControls;
-
-    } catch (error) {
-
-        /*
-          OrbitControls is optional.
-
-          We can still display the 3D model
-          without interactive controls.
-        */
-
-        console.warn(
-            "OrbitControls unavailable:",
-            error
-        );
-
-        OrbitControls = null;
-
-    }
-
-
-    /* =====================================================
-       THREE.JS SETUP
-    ===================================================== */
-
-    try {
-
-        const {
-
-            Scene,
-            PerspectiveCamera,
-            WebGLRenderer,
-            AmbientLight,
-            DirectionalLight,
-            Group,
-            Mesh,
-            SphereGeometry,
-            CapsuleGeometry,
-            CylinderGeometry,
-            BoxGeometry,
-            MeshStandardMaterial,
-            MeshBasicMaterial,
-            Color
-
-        } = THREE;
-
-
-        const scene =
-            new Scene();
-
-
-        scene.background =
-            new Color(0xf5faf8);
-
-
-        /* Camera */
-
-        const camera =
-            new PerspectiveCamera(
-                35,
-                container.clientWidth /
-                Math.max(
-                    container.clientHeight,
-                    1
-                ),
-                0.1,
-                100
-            );
-
-
-        camera.position.set(
-            0,
-            1.2,
-            6
+        male.classList.toggle(
+            "active-model",
+            !isFemale
         );
 
 
-        /* Renderer */
-
-        const renderer =
-            new WebGLRenderer({
-                antialias: true,
-                alpha: true,
-                powerPreference: "high-performance"
-            });
-
-
-        renderer.setPixelRatio(
-            Math.min(
-                window.devicePixelRatio || 1,
-                2
-            )
+        female.classList.toggle(
+            "active-model",
+            isFemale
         );
 
 
-        renderer.setSize(
-            container.clientWidth,
-            container.clientHeight
-        );
-
-
-        renderer.outputColorSpace =
-            THREE.SRGBColorSpace;
-
-
-        renderer.domElement.setAttribute(
-            "aria-label",
-            "Interactive human anatomy model"
-        );
-
-
-        container.appendChild(
-            renderer.domElement
-        );
-
-
-        /* =================================================
-           LIGHTING
-        ================================================= */
-
-        const ambient =
-            new AmbientLight(
-                0xffffff,
-                2.2
-            );
-
-
-        scene.add(ambient);
-
-
-        const directional =
-            new DirectionalLight(
-                0xffffff,
-                3
-            );
-
-
-        directional.position.set(
-            3,
-            5,
-            5
-        );
-
-
-        scene.add(directional);
-
-
-        const fill =
-            new DirectionalLight(
-                0xdff7ee,
-                2
-            );
-
-
-        fill.position.set(
-            -4,
-            2,
-            2
-        );
-
-
-        scene.add(fill);
-
-
-        /* =================================================
-           PROCEDURAL HUMAN MODEL
-
-           This is intentionally generated with Three.js
-           so the viewer does not depend on a remote .glb file.
-
-           It is an educational visualisation, not a
-           medically accurate anatomical model.
-        ================================================= */
-
-        const human =
-            new Group();
-
-
-        scene.add(human);
-
-
-        const skinMaterial =
-            new MeshStandardMaterial({
-                color: 0xd89c78,
-                roughness: 0.75,
-                metalness: 0
-            });
-
-
-        const shirtMaterial =
-            new MeshStandardMaterial({
-                color: 0xffffff,
-                roughness: 0.7
-            });
-
-
-        const pantsMaterial =
-            new MeshStandardMaterial({
-                color: 0x1f4f46,
-                roughness: 0.8
-            });
-
-
-        const redMaterial =
-            new MeshStandardMaterial({
-                color: 0xc62828,
-                roughness: 0.5
-            });
-
-
-        const blueMaterial =
-            new MeshStandardMaterial({
-                color: 0x3977b7,
-                roughness: 0.5
-            });
-
-
-        const boneMaterial =
-            new MeshStandardMaterial({
-                color: 0xe8dfc8,
-                roughness: 0.9
-            });
-
-
-        /* HEAD */
-
-        const head =
-            new Mesh(
-                new SphereGeometry(
-                    0.38,
-                    32,
-                    24
-                ),
-                skinMaterial
-            );
-
-
-        head.position.y = 2.7;
-
-        human.add(head);
-
-
-        /* NECK */
-
-        const neck =
-            new Mesh(
-                new CylinderGeometry(
-                    0.18,
-                    0.2,
-                    0.35,
-                    24
-                ),
-                skinMaterial
-            );
-
-
-        neck.position.y = 2.25;
-
-        human.add(neck);
-
-
-        /* TORSO */
-
-        const torso =
-            new Mesh(
-                new CapsuleGeometry(
-                    0.62,
-                    1.0,
-                    8,
-                    20
-                ),
-                shirtMaterial
-            );
-
-
-        torso.position.y = 1.55;
-
-        human.add(torso);
-
-
-        /* LEFT ARM */
-
-        const leftArm =
-            new Mesh(
-                new CapsuleGeometry(
-                    0.17,
-                    1.0,
-                    6,
-                    16
-                ),
-                skinMaterial
-            );
-
-
-        leftArm.position.set(
-            -0.78,
-            1.55,
-            0
-        );
-
-
-        leftArm.rotation.z =
-            -0.15;
-
-
-        human.add(leftArm);
-
-
-        /* RIGHT ARM */
-
-        const rightArm =
-            new Mesh(
-                new CapsuleGeometry(
-                    0.17,
-                    1.0,
-                    6,
-                    16
-                ),
-                skinMaterial
-            );
-
-
-        rightArm.position.set(
-            0.78,
-            1.55,
-            0
-        );
-
-
-        rightArm.rotation.z =
-            0.15;
-
-
-        human.add(rightArm);
-
-
-        /* LEFT LEG */
-
-        const leftLeg =
-            new Mesh(
-                new CapsuleGeometry(
-                    0.22,
-                    1.25,
-                    6,
-                    16
-                ),
-                pantsMaterial
-            );
-
-
-        leftLeg.position.set(
-            -0.32,
-            0.25,
-            0
-        );
-
-
-        human.add(leftLeg);
-
-
-        /* RIGHT LEG */
-
-        const rightLeg =
-            new Mesh(
-                new CapsuleGeometry(
-                    0.22,
-                    1.25,
-                    6,
-                    16
-                ),
-                pantsMaterial
-            );
-
-
-        rightLeg.position.set(
-            0.32,
-            0.25,
-            0
-        );
-
-
-        human.add(rightLeg);
-
-
-        /* =================================================
-           INTERNAL ORGAN VISUALS
-        ================================================= */
-
-        const organs =
-            new Group();
-
-
-        human.add(organs);
-
-
-        /* HEART */
-
-        const heart =
-            new Mesh(
-                new SphereGeometry(
-                    0.18,
-                    24,
-                    20
-                ),
-                redMaterial
-            );
-
-
-        heart.position.set(
-            0.12,
-            1.75,
-            0.48
-        );
-
-
-        organs.add(heart);
-
-
-        /* LUNGS */
-
-        const leftLung =
-            new Mesh(
-                new SphereGeometry(
-                    0.22,
-                    20,
-                    16
-                ),
-                blueMaterial
-            );
-
-
-        leftLung.scale.set(
-            0.8,
-            1.3,
-            0.6
-        );
-
-
-        leftLung.position.set(
-            -0.22,
-            1.82,
-            0.43
-        );
-
-
-        organs.add(leftLung);
-
-
-        const rightLung =
-            leftLung.clone();
-
-
-        rightLung.position.x =
-            0.22;
-
-
-        organs.add(rightLung);
-
-
-        /* BRAIN */
-
-        const brain =
-            new Mesh(
-                new SphereGeometry(
-                    0.23,
-                    24,
-                    20
-                ),
-                blueMaterial
-            );
-
-
-        brain.position.set(
-            0,
-            2.72,
-            0.3
-        );
-
-
-        organs.add(brain);
-
-
-        /* STOMACH */
-
-        const stomach =
-            new Mesh(
-                new SphereGeometry(
-                    0.25,
-                    24,
-                    18
-                ),
-                redMaterial
-            );
-
-
-        stomach.scale.set(
-            0.8,
-            1.2,
-            0.7
-        );
-
-
-        stomach.position.set(
-            -0.1,
-            1.35,
-            0.42
-        );
-
-
-        organs.add(stomach);
-
-
-        /* SKELETAL SPINE */
-
-        const spine =
-            new Mesh(
-                new CylinderGeometry(
-                    0.07,
-                    0.07,
-                    1.35,
-                    12
-                ),
-                boneMaterial
-            );
-
-
-        spine.position.set(
-            0,
-            1.55,
-            -0.45
-        );
-
-
-        human.add(spine);
-
-
-        /* =================================================
-           MODEL SWITCH
-        ================================================= */
-
-        let currentModel =
-            "male";
-
-
-        /*
-          The current procedural model is neutral.
-          The switch changes visual presentation without
-          relying on external model files.
-        */
-
-        const modelButtons =
-            $$(".model-btn");
-
-
-        modelButtons.forEach(button => {
-
-            button.addEventListener(
-                "click",
-                () => {
-
-                    modelButtons.forEach(
-                        item =>
-                            item.classList.remove(
-                                "active"
-                            )
-                    );
-
-
-                    button.classList.add(
-                        "active"
-                    );
-
-
-                    currentModel =
-                        button.dataset.model ||
-                        "male";
-
-
-                    if (currentModel === "female") {
-
-                        torso.scale.x =
-                            0.9;
-
-                        head.scale.set(
-                            0.96,
-                            1,
-                            0.96
-                        );
-
-                    } else {
-
-                        torso.scale.x =
-                            1;
-
-                        head.scale.set(
-                            1,
-                            1,
-                            1
-                        );
-
-                    }
-
-                }
+        buttons.forEach(button => {
+
+            button.classList.toggle(
+                "active",
+                button.dataset.model === model
             );
 
         });
 
 
-        /* =================================================
-           ORBIT CONTROLS
-        ================================================= */
+        /*
+        Reload only the selected model when switching.
 
-        let controls = null;
+        This keeps the two models independent.
+        */
 
+        if (isFemale) {
 
-        if (OrbitControls) {
+            female.style.display = "block";
+            male.style.display = "none";
 
-            controls =
-                new OrbitControls(
-                    camera,
-                    renderer.domElement
-                );
+        } else {
 
-
-            controls.enableDamping =
-                true;
-
-
-            controls.dampingFactor =
-                0.06;
-
-
-            controls.enablePan =
-                false;
-
-
-            controls.minDistance =
-                3.5;
-
-
-            controls.maxDistance =
-                9;
-
-
-            controls.target.set(
-                0,
-                1.5,
-                0
-            );
-
-
-            controls.update();
+            male.style.display = "block";
+            female.style.display = "none";
 
         }
 
-
-        /* =================================================
-           ROTATION BUTTONS
-        ================================================= */
-
-        const rotateLeft =
-            $("#rotateLeft");
-
-        const rotateRight =
-            $("#rotateRight");
-
-        const resetView =
-            $("#resetView");
-
-
-        if (rotateLeft) {
-
-            rotateLeft.addEventListener(
-                "click",
-                () => {
-
-                    human.rotation.y -=
-                        Math.PI / 8;
-
-                }
-            );
-
-        }
-
-
-        if (rotateRight) {
-
-            rotateRight.addEventListener(
-                "click",
-                () => {
-
-                    human.rotation.y +=
-                        Math.PI / 8;
-
-                }
-            );
-
-        }
-
-
-        if (resetView) {
-
-            resetView.addEventListener(
-                "click",
-                () => {
-
-                    human.rotation.set(
-                        0,
-                        0,
-                        0
-                    );
-
-
-                    camera.position.set(
-                        0,
-                        1.2,
-                        6
-                    );
-
-
-                    if (controls) {
-
-                        controls.target.set(
-                            0,
-                            1.5,
-                            0
-                        );
-
-                        controls.update();
-
-                    }
-
-                }
-            );
-
-        }
-
-
-        /* =================================================
-           BODY PART HIGHLIGHTING
-        ================================================= */
-
-        window.addEventListener(
-            "olukayode:body-part",
-            event => {
-
-                const part =
-                    event.detail?.part;
-
-
-                /* Reset */
-
-                [
-                    brain,
-                    heart,
-                    leftLung,
-                    rightLung,
-                    stomach
-                ].forEach(mesh => {
-
-                    mesh.scale.set(
-                        1,
-                        1,
-                        1
-                    );
-
-                });
-
-
-                if (part === "brain") {
-
-                    brain.scale.set(
-                        1.45,
-                        1.45,
-                        1.45
-                    );
-
-                }
-
-
-                if (part === "heart") {
-
-                    heart.scale.set(
-                        1.7,
-                        1.7,
-                        1.7
-                    );
-
-                }
-
-
-                if (part === "lungs") {
-
-                    leftLung.scale.multiplyScalar(
-                        1.4
-                    );
-
-                    rightLung.scale.multiplyScalar(
-                        1.4
-                    );
-
-                }
-
-
-                if (part === "stomach") {
-
-                    stomach.scale.multiplyScalar(
-                        1.5
-                    );
-
-                }
-
-
-                if (part === "bones") {
-
-                    spine.scale.set(
-                        1.7,
-                        1,
-                        1.7
-                    );
-
-                }
-
-
-                if (part === "muscles") {
-
-                    leftArm.scale.multiplyScalar(
-                        1.15
-                    );
-
-                    rightArm.scale.multiplyScalar(
-                        1.15
-                    );
-
-                }
-
-            }
-        );
-
-
-        /* =================================================
-           RESIZE
-        ================================================= */
-
-        function resize() {
-
-            const width =
-                Math.max(
-                    container.clientWidth,
-                    1
-                );
-
-
-            const height =
-                Math.max(
-                    container.clientHeight,
-                    1
-                );
-
-
-            camera.aspect =
-                width / height;
-
-
-            camera.updateProjectionMatrix();
-
-
-            renderer.setSize(
-                width,
-                height
-            );
-
-        }
-
-
-        window.addEventListener(
-            "resize",
-            resize
-        );
-
-
-        resize();
-
-
-        /* =================================================
-           REMOVE LOADER
-        ================================================= */
 
         if (loader) {
 
-            loader.classList.add(
+            loader.classList.remove(
                 "loaded"
             );
 
             setTimeout(() => {
 
-                if (loader.parentNode) {
+                loader.classList.add(
+                    "loaded"
+                );
 
-                    loader.style.display =
-                        "none";
+            }, 700);
+
+        }
+
+    }
+
+
+    buttons.forEach(button => {
+
+        button.addEventListener(
+            "click",
+            () => {
+
+                switchModel(
+                    button.dataset.model
+                );
+
+            }
+        );
+
+    });
+
+
+    /* =================================================
+    VIEWER BUTTONS
+
+    These send basic keyboard-style commands where
+    possible. The Sketchfab viewer itself provides
+    its own drag/zoom controls.
+    ================================================= */
+
+    function sendViewerCommand(model, command) {
+
+        try {
+
+            model.contentWindow.postMessage(
+                {
+                    type: "command",
+                    command
+                },
+                "https://sketchfab.com"
+            );
+
+        } catch (error) {
+
+            console.warn(
+                "Sketchfab control unavailable:",
+                error
+            );
+
+        }
+
+    }
+
+
+    if (rotateLeft) {
+
+        rotateLeft.addEventListener(
+            "click",
+            () => {
+
+                const active =
+                    document.querySelector(
+                        ".sketchfab-model.active-model"
+                    );
+
+                if (active) {
+
+                    sendViewerCommand(
+                        active,
+                        "rotateLeft"
+                    );
 
                 }
+
+            }
+        );
+
+    }
+
+
+    if (rotateRight) {
+
+        rotateRight.addEventListener(
+            "click",
+            () => {
+
+                const active =
+                    document.querySelector(
+                        ".sketchfab-model.active-model"
+                    );
+
+                if (active) {
+
+                    sendViewerCommand(
+                        active,
+                        "rotateRight"
+                    );
+
+                }
+
+            }
+        );
+
+    }
+
+
+    if (reset) {
+
+        reset.addEventListener(
+            "click",
+            () => {
+
+                const active =
+                    document.querySelector(
+                        ".sketchfab-model.active-model"
+                    );
+
+                if (!active) return;
+
+
+                /*
+                Recreating the iframe gives us a reliable
+                reset without depending on Sketchfab's API.
+                */
+
+                const source =
+                    active.src;
+
+                active.src = "";
+
+                setTimeout(() => {
+
+                    active.src = source;
+
+                }, 50);
+
+            }
+        );
+
+    }
+
+
+    /* =================================================
+    LOADING
+    ================================================= */
+
+    let loadedCount = 0;
+
+
+    function modelLoaded() {
+
+        loadedCount++;
+
+
+        if (loader && loadedCount >= 1) {
+
+            setTimeout(() => {
+
+                loader.classList.add(
+                    "loaded"
+                );
 
             }, 500);
 
         }
 
-
-        /* =================================================
-           ANIMATION LOOP
-        ================================================= */
-
-        let animationFrame;
+    }
 
 
-        function animate() {
-
-            animationFrame =
-                requestAnimationFrame(
-                    animate
-                );
+    male.addEventListener(
+        "load",
+        modelLoaded
+    );
 
 
-            /*
-              Very subtle idle movement.
-              The user can still rotate the model.
-            */
-
-            human.rotation.y +=
-                0.0015;
+    female.addEventListener(
+        "load",
+        modelLoaded
+    );
 
 
-            if (controls) {
+    /*
+    Do not let iframe failures throw errors
+    into the rest of the website.
+    */
 
-                controls.update();
+    try {
 
-            }
-
-
-            renderer.render(
-                scene,
-                camera
-            );
-
-        }
-
-
-        animate();
-
-
-        /* =================================================
-           CLEANUP IF PAGE IS HIDDEN
-        ================================================= */
-
-        document.addEventListener(
-            "visibilitychange",
-            () => {
-
-                if (
-                    document.hidden
-                ) {
-
-                    cancelAnimationFrame(
-                        animationFrame
-                    );
-
-                } else {
-
-                    animate();
-
-                }
-
-            }
-        );
-
-
-        console.log(
-            "Olukayode Hospital 3D anatomy initialized successfully."
-        );
-
+        switchModel("male");
 
     } catch (error) {
 
-        /*
-          THIS IS THE MOST IMPORTANT SAFETY NET.
-
-          If anything inside the 3D setup crashes,
-          the rest of the website remains alive.
-        */
-
         console.error(
-            "3D anatomy failed safely:",
+            "3D model system failed safely:",
             error
-        );
-
-
-        showFallback(
-            "Interactive 3D temporarily unavailable"
         );
 
     }
@@ -2101,16 +1282,12 @@ async function init3DAnatomy() {
 }
 
 
-/* =========================================================
-   GLOBAL ERROR PROTECTION
-========================================================= */
+/* =====================================================
+GLOBAL ERROR PROTECTION
+=====================================================
 
-/*
-  Prevent unexpected errors from producing an
-  unusable page.
-
-  We intentionally DO NOT reload the page.
-*/
+This logs errors rather than stopping the website.
+===================================================== */
 
 window.addEventListener(
     "error",
@@ -2125,10 +1302,6 @@ window.addEventListener(
 );
 
 
-/*
-  Catch rejected dynamic imports/promises.
-*/
-
 window.addEventListener(
     "unhandledrejection",
     event => {
@@ -2142,6 +1315,6 @@ window.addEventListener(
 );
 
 
-/* =========================================================
-   END
-========================================================= */
+/* =====================================================
+END
+===================================================== */
