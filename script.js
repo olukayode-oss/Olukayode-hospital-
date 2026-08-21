@@ -1,98 +1,154 @@
-/* =====================================================
+/* =========================================================
 OLUKAYODE HOSPITAL
-PREMIUM INTERACTIONS
-===================================================== */
+INTERACTIONS
+========================================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    /* =================================================
-       MOBILE MENU
-    ================================================= */
+    /* =====================================================
+    ELEMENTS
+    ===================================================== */
 
     const menuBtn = document.getElementById("menuBtn");
     const navMenu = document.getElementById("navMenu");
+    const navbar = document.getElementById("navbar");
 
-    if (menuBtn && navMenu) {
+    const scrollProgress =
+        document.getElementById("scrollProgress");
 
-        menuBtn.addEventListener("click", () => {
+    const backToTop =
+        document.getElementById("backToTop");
 
-            const isOpen =
-                navMenu.classList.toggle("active");
-
-            menuBtn.classList.toggle(
-                "active",
-                isOpen
-            );
-
-            menuBtn.setAttribute(
-                "aria-expanded",
-                isOpen
-            );
-
-            document.body.classList.toggle(
-                "menu-open",
-                isOpen
-            );
-
-        });
+    const year =
+        document.getElementById("year");
 
 
-        /* Close menu after selecting link */
+    /* =====================================================
+    YEAR
+    ===================================================== */
 
-        navMenu.querySelectorAll("a").forEach(link => {
-
-            link.addEventListener("click", () => {
-
-                navMenu.classList.remove("active");
-                menuBtn.classList.remove("active");
-
-                menuBtn.setAttribute(
-                    "aria-expanded",
-                    "false"
-                );
-
-                document.body.classList.remove(
-                    "menu-open"
-                );
-
-            });
-
-        });
-
+    if (year) {
+        year.textContent = new Date().getFullYear();
     }
 
 
-    /* =================================================
-       NAVBAR SCROLL EFFECT
-    ================================================= */
+    /* =====================================================
+    MOBILE MENU
+    ===================================================== */
 
-    const navbar =
-        document.getElementById("navbar");
+    function closeMenu() {
 
-    function updateNavbar() {
+        menuBtn?.classList.remove("active");
+        navMenu?.classList.remove("active");
 
-        if (!navbar) return;
+        document.body.classList.remove("menu-open");
 
-        if (window.scrollY > 30) {
-            navbar.classList.add("scrolled");
-        } else {
-            navbar.classList.remove("scrolled");
+        menuBtn?.setAttribute(
+            "aria-expanded",
+            "false"
+        );
+    }
+
+    menuBtn?.addEventListener("click", () => {
+
+        const isOpen =
+            navMenu.classList.toggle("active");
+
+        menuBtn.classList.toggle(
+            "active",
+            isOpen
+        );
+
+        document.body.classList.toggle(
+            "menu-open",
+            isOpen
+        );
+
+        menuBtn.setAttribute(
+            "aria-expanded",
+            String(isOpen)
+        );
+
+    });
+
+
+    document.querySelectorAll("#navMenu a")
+        .forEach(link => {
+
+            link.addEventListener(
+                "click",
+                closeMenu
+            );
+
+        });
+
+
+    /* =====================================================
+    NAVBAR SCROLL
+    ===================================================== */
+
+    function handleScroll() {
+
+        const scrollY = window.scrollY;
+
+        navbar?.classList.toggle(
+            "scrolled",
+            scrollY > 20
+        );
+
+        backToTop?.classList.toggle(
+            "show",
+            scrollY > 600
+        );
+
+
+        /* Scroll progress */
+
+        const documentHeight =
+            document.documentElement.scrollHeight -
+            window.innerHeight;
+
+        const progress =
+            documentHeight > 0
+                ? (scrollY / documentHeight) * 100
+                : 0;
+
+        if (scrollProgress) {
+            scrollProgress.style.width =
+                `${progress}%`;
         }
 
     }
 
     window.addEventListener(
         "scroll",
-        updateNavbar,
+        handleScroll,
         { passive: true }
     );
 
-    updateNavbar();
+    handleScroll();
 
 
-    /* =================================================
-       SCROLL REVEAL
-    ================================================= */
+    /* =====================================================
+    BACK TO TOP
+    ===================================================== */
+
+    backToTop?.addEventListener(
+        "click",
+        () => {
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+
+        }
+    );
+
+
+    /* =====================================================
+    REVEAL ANIMATIONS
+    ===================================================== */
 
     const revealElements =
         document.querySelectorAll(".reveal");
@@ -103,17 +159,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 entries.forEach(entry => {
 
-                    if (entry.isIntersecting) {
-
-                        entry.target.classList.add(
-                            "visible"
-                        );
-
-                        revealObserver.unobserve(
-                            entry.target
-                        );
-
+                    if (!entry.isIntersecting) {
+                        return;
                     }
+
+                    entry.target.classList.add(
+                        "visible"
+                    );
+
+                    revealObserver.unobserve(
+                        entry.target
+                    );
 
                 });
 
@@ -124,53 +180,77 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         );
 
-    revealElements.forEach(element => {
-        revealObserver.observe(element);
+
+    revealElements.forEach(
+        element => revealObserver.observe(element)
+    );
+
+
+    /* =====================================================
+    STAGGER CARDS
+    ===================================================== */
+
+    document.querySelectorAll(
+        ".services-grid .reveal, " +
+        ".gallery-grid .reveal, " +
+        ".faq-container .reveal, " +
+        ".stats-section .reveal"
+    ).forEach((element, index) => {
+
+        element.style.transitionDelay =
+            `${(index % 4) * 80}ms`;
+
     });
 
 
-    /* =================================================
-       COUNTERS
-    ================================================= */
+    /* =====================================================
+    COUNTERS
+    ===================================================== */
 
     const counters =
         document.querySelectorAll(".counter");
+
+    let countersStarted = false;
 
     const counterObserver =
         new IntersectionObserver(
             entries => {
 
-                entries.forEach(entry => {
+                if (
+                    countersStarted ||
+                    !entries.some(
+                        entry => entry.isIntersecting
+                    )
+                ) {
+                    return;
+                }
 
-                    if (!entry.isIntersecting) return;
+                countersStarted = true;
 
-                    const counter =
-                        entry.target;
+                counters.forEach(counter => {
 
                     const target =
                         Number(
                             counter.dataset.target
                         );
 
-                    const duration = 1600;
+                    let current = 0;
 
-                    const startTime =
+                    const duration = 1400;
+
+                    const start =
                         performance.now();
 
-                    function updateCounter(
-                        currentTime
-                    ) {
+                    function animate(time) {
 
                         const elapsed =
-                            currentTime - startTime;
+                            time - start;
 
                         const progress =
                             Math.min(
                                 elapsed / duration,
                                 1
                             );
-
-                        /* Smooth easing */
 
                         const eased =
                             1 -
@@ -179,226 +259,82 @@ document.addEventListener("DOMContentLoaded", () => {
                                 3
                             );
 
-                        counter.textContent =
+                        current =
                             Math.floor(
-                                target * eased
+                                eased * target
                             );
+
+                        counter.textContent =
+                            current;
 
                         if (progress < 1) {
-
                             requestAnimationFrame(
-                                updateCounter
+                                animate
                             );
-
                         } else {
-
                             counter.textContent =
                                 target;
-
                         }
 
                     }
 
                     requestAnimationFrame(
-                        updateCounter
-                    );
-
-                    counterObserver.unobserve(
-                        counter
+                        animate
                     );
 
                 });
 
+                counterObserver.disconnect();
+
             },
             {
-                threshold: .5
+                threshold: 0.4
             }
         );
 
-    counters.forEach(counter => {
-        counterObserver.observe(counter);
-    });
+    const stats =
+        document.querySelector(".stats-section");
 
-
-    /* =================================================
-       GALLERY LIGHTBOX
-    ================================================= */
-
-    const lightbox =
-        document.getElementById("lightbox");
-
-    const lightboxImage =
-        document.getElementById(
-            "lightboxImage"
-        );
-
-    const closeLightbox =
-        document.getElementById(
-            "closeLightbox"
-        );
-
-    const galleryItems =
-        document.querySelectorAll(
-            ".gallery-item"
-        );
-
-    function openLightbox(image) {
-
-        if (!lightbox || !lightboxImage) {
-            return;
-        }
-
-        lightboxImage.src = image;
-
-        lightbox.classList.add("active");
-
-        document.body.classList.add(
-            "menu-open"
-        );
-
+    if (stats) {
+        counterObserver.observe(stats);
     }
 
 
-    function closeLightboxFunction() {
-
-        if (!lightbox) return;
-
-        lightbox.classList.remove(
-            "active"
-        );
-
-        document.body.classList.remove(
-            "menu-open"
-        );
-
-        setTimeout(() => {
-
-            if (lightboxImage) {
-                lightboxImage.src = "";
-            }
-
-        }, 300);
-
-    }
-
-
-    galleryItems.forEach(item => {
-
-        item.addEventListener(
-            "click",
-            () => {
-
-                const image =
-                    item.dataset.image;
-
-                if (image) {
-                    openLightbox(image);
-                }
-
-            }
-        );
-
-    });
-
-
-    if (closeLightbox) {
-
-        closeLightbox.addEventListener(
-            "click",
-            closeLightboxFunction
-        );
-
-    }
-
-
-    if (lightbox) {
-
-        lightbox.addEventListener(
-            "click",
-            event => {
-
-                if (
-                    event.target === lightbox
-                ) {
-                    closeLightboxFunction();
-                }
-
-            }
-        );
-
-    }
-
-
-    document.addEventListener(
-        "keydown",
-        event => {
-
-            if (event.key === "Escape") {
-                closeLightboxFunction();
-            }
-
-        }
-    );
-
-
-    /* =================================================
-       FAQ
-    ================================================= */
+    /* =====================================================
+    FAQ
+    ===================================================== */
 
     const faqItems =
-        document.querySelectorAll(
-            ".faq-item"
-        );
+        document.querySelectorAll(".faq-item");
 
     faqItems.forEach(item => {
 
         const question =
-            item.querySelector(
-                ".faq-question"
-            );
+            item.querySelector(".faq-question");
 
-        if (!question) return;
-
-        question.addEventListener(
+        question?.addEventListener(
             "click",
             () => {
 
-                const wasActive =
-                    item.classList.contains(
+                const alreadyOpen =
+                    item.classList.contains("active");
+
+                faqItems.forEach(other => {
+
+                    other.classList.remove(
                         "active"
                     );
 
+                    other.querySelector(
+                        ".faq-question"
+                    )?.setAttribute(
+                        "aria-expanded",
+                        "false"
+                    );
 
-                /* Close all */
+                });
 
-                faqItems.forEach(
-                    otherItem => {
-
-                        otherItem.classList.remove(
-                            "active"
-                        );
-
-                        const otherQuestion =
-                            otherItem.querySelector(
-                                ".faq-question"
-                            );
-
-                        if (otherQuestion) {
-
-                            otherQuestion.setAttribute(
-                                "aria-expanded",
-                                "false"
-                            );
-
-                        }
-
-                    }
-                );
-
-
-                /* Open selected */
-
-                if (!wasActive) {
+                if (!alreadyOpen) {
 
                     item.classList.add(
                         "active"
@@ -417,21 +353,111 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 
-    /* =================================================
-       TESTIMONIAL SLIDER
-    ================================================= */
+    /* =====================================================
+    GALLERY LIGHTBOX
+    ===================================================== */
+
+    const lightbox =
+        document.getElementById("lightbox");
+
+    const lightboxImage =
+        document.getElementById(
+            "lightboxImage"
+        );
+
+    const closeLightbox =
+        document.getElementById(
+            "closeLightbox"
+        );
+
+    document.querySelectorAll(
+        ".gallery-item"
+    ).forEach(item => {
+
+        item.addEventListener(
+            "click",
+            () => {
+
+                const image =
+                    item.dataset.image;
+
+                if (!image) return;
+
+                lightboxImage.src = image;
+
+                lightbox.classList.add(
+                    "active"
+                );
+
+                document.body.style.overflow =
+                    "hidden";
+
+            }
+        );
+
+    });
+
+
+    function closeGallery() {
+
+        lightbox?.classList.remove(
+            "active"
+        );
+
+        document.body.style.overflow =
+            "";
+
+    }
+
+
+    closeLightbox?.addEventListener(
+        "click",
+        closeGallery
+    );
+
+
+    lightbox?.addEventListener(
+        "click",
+        event => {
+
+            if (event.target === lightbox) {
+                closeGallery();
+            }
+
+        }
+    );
+
+
+    document.addEventListener(
+        "keydown",
+        event => {
+
+            if (
+                event.key === "Escape" &&
+                lightbox?.classList.contains("active")
+            ) {
+                closeGallery();
+            }
+
+        }
+    );
+
+
+    /* =====================================================
+    TESTIMONIAL SLIDER
+    ===================================================== */
 
     const track =
         document.getElementById(
             "testimonialTrack"
         );
 
-    const prevButton =
+    const prev =
         document.getElementById(
             "testimonialPrev"
         );
 
-    const nextButton =
+    const next =
         document.getElementById(
             "testimonialNext"
         );
@@ -441,469 +467,341 @@ document.addEventListener("DOMContentLoaded", () => {
             "testimonialDots"
         );
 
-
-    if (
-        track &&
-        prevButton &&
-        nextButton &&
-        dotsContainer
-    ) {
-
-        const cards =
-            Array.from(
-                track.querySelectorAll(
-                    ".testimonial-card"
-                )
-            );
-
-        let currentIndex = 0;
-
-        let cardsPerView =
-            getCardsPerView();
-
-        function getCardsPerView() {
-
-            if (window.innerWidth <= 550) {
-                return 1;
-            }
-
-            if (window.innerWidth <= 1050) {
-                return 2;
-            }
-
-            return 3;
-
-        }
-
-
-        function getMaxIndex() {
-
-            return Math.max(
-                0,
-                cards.length - cardsPerView
-            );
-
-        }
-
-
-        function buildDots() {
-
-            dotsContainer.innerHTML = "";
-
-            const total =
-                getMaxIndex() + 1;
-
-            for (
-                let i = 0;
-                i < total;
-                i++
-            ) {
-
-                const dot =
-                    document.createElement(
-                        "button"
-                    );
-
-                dot.type = "button";
-
-                dot.className =
-                    "testimonial-dot";
-
-                if (
-                    i === currentIndex
-                ) {
-                    dot.classList.add(
-                        "active"
-                    );
-                }
-
-                dot.addEventListener(
-                    "click",
-                    () => {
-
-                        currentIndex = i;
-
-                        updateSlider();
-
-                    }
-                );
-
-                dotsContainer.appendChild(
-                    dot
-                );
-
-            }
-
-        }
-
-
-        function updateSlider() {
-
-            cardsPerView =
-                getCardsPerView();
-
-            const maxIndex =
-                getMaxIndex();
-
-            currentIndex =
-                Math.min(
-                    currentIndex,
-                    maxIndex
-                );
-
-            if (!cards.length) return;
-
-
-            const cardWidth =
-                cards[0].getBoundingClientRect()
-                    .width;
-
-            const gap =
-                parseFloat(
-                    getComputedStyle(track)
-                        .gap
-                ) || 0;
-
-            const distance =
-                currentIndex *
-                (cardWidth + gap);
-
-            track.style.transform =
-                `translateX(-${distance}px)`;
-
-
-            document
-                .querySelectorAll(
-                    ".testimonial-dot"
-                )
-                .forEach(
-                    (dot, index) => {
-
-                        dot.classList.toggle(
-                            "active",
-                            index === currentIndex
-                        );
-
-                    }
-                );
-
-        }
-
-
-        prevButton.addEventListener(
-            "click",
-            () => {
-
-                currentIndex--;
-
-                if (currentIndex < 0) {
-
-                    currentIndex =
-                        getMaxIndex();
-
-                }
-
-                updateSlider();
-
-            }
+    const cards =
+        document.querySelectorAll(
+            ".testimonial-card"
         );
 
+    let testimonialIndex = 0;
 
-        nextButton.addEventListener(
-            "click",
-            () => {
+    function cardsPerView() {
 
-                currentIndex++;
+        if (window.innerWidth <= 800) {
+            return 1;
+        }
 
-                if (
-                    currentIndex >
-                    getMaxIndex()
-                ) {
+        if (window.innerWidth <= 1100) {
+            return 2;
+        }
 
-                    currentIndex = 0;
+        return 3;
 
-                }
-
-                updateSlider();
-
-            }
-        );
+    }
 
 
-        buildDots();
-        updateSlider();
+    function totalSlides() {
 
-
-        window.addEventListener(
-            "resize",
-            () => {
-
-                cardsPerView =
-                    getCardsPerView();
-
-                buildDots();
-                updateSlider();
-
-            }
-        );
-
-
-        /* Touch swipe */
-
-        let touchStartX = 0;
-        let touchEndX = 0;
-
-        track.addEventListener(
-            "touchstart",
-            event => {
-
-                touchStartX =
-                    event.touches[0].clientX;
-
-            },
-            { passive: true }
-        );
-
-
-        track.addEventListener(
-            "touchend",
-            event => {
-
-                touchEndX =
-                    event.changedTouches[0]
-                        .clientX;
-
-                const distance =
-                    touchStartX -
-                    touchEndX;
-
-                if (
-                    Math.abs(distance) < 45
-                ) {
-                    return;
-                }
-
-                if (distance > 0) {
-                    nextButton.click();
-                } else {
-                    prevButton.click();
-                }
-
-            },
-            { passive: true }
+        return Math.max(
+            1,
+            cards.length -
+            cardsPerView() +
+            1
         );
 
     }
 
 
-    /* =================================================
-       WHATSAPP FORM
-    ================================================= */
+    function createDots() {
+
+        if (!dotsContainer) return;
+
+        dotsContainer.innerHTML = "";
+
+        for (
+            let i = 0;
+            i < totalSlides();
+            i++
+        ) {
+
+            const dot =
+                document.createElement(
+                    "button"
+                );
+
+            dot.className =
+                "testimonial-dot";
+
+            dot.type = "button";
+
+            dot.setAttribute(
+                "aria-label",
+                `Go to testimonial ${i + 1}`
+            );
+
+            dot.addEventListener(
+                "click",
+                () => {
+
+                    testimonialIndex = i;
+
+                    updateTestimonials();
+
+                }
+            );
+
+            dotsContainer.appendChild(dot);
+
+        }
+
+    }
+
+
+    function updateTestimonials() {
+
+        if (!track || !cards.length) {
+            return;
+        }
+
+        const visible =
+            cardsPerView();
+
+        const gap = 18;
+
+        const cardWidth =
+            cards[0].getBoundingClientRect().width;
+
+        const movement =
+            (cardWidth + gap) *
+            testimonialIndex;
+
+        track.style.transform =
+            `translateX(-${movement}px)`;
+
+
+        const dots =
+            dotsContainer?.querySelectorAll(
+                ".testimonial-dot"
+            );
+
+        dots?.forEach(
+            (dot, index) => {
+
+                dot.classList.toggle(
+                    "active",
+                    index === testimonialIndex
+                );
+
+            }
+        );
+
+        if (
+            testimonialIndex >=
+            totalSlides()
+        ) {
+
+            testimonialIndex =
+                totalSlides() - 1;
+
+        }
+
+    }
+
+
+    prev?.addEventListener(
+        "click",
+        () => {
+
+            testimonialIndex--;
+
+            if (testimonialIndex < 0) {
+                testimonialIndex =
+                    totalSlides() - 1;
+            }
+
+            updateTestimonials();
+
+        }
+    );
+
+
+    next?.addEventListener(
+        "click",
+        () => {
+
+            testimonialIndex++;
+
+            if (
+                testimonialIndex >=
+                totalSlides()
+            ) {
+                testimonialIndex = 0;
+            }
+
+            updateTestimonials();
+
+        }
+    );
+
+
+    createDots();
+
+    window.addEventListener(
+        "resize",
+        () => {
+
+            createDots();
+
+            if (
+                testimonialIndex >=
+                totalSlides()
+            ) {
+                testimonialIndex =
+                    totalSlides() - 1;
+            }
+
+            updateTestimonials();
+
+        }
+    );
+
+
+    updateTestimonials();
+
+
+    /* =====================================================
+    AUTO TESTIMONIAL SLIDER
+    ===================================================== */
+
+    let testimonialTimer =
+        setInterval(() => {
+
+            if (
+                document.visibilityState !==
+                "visible"
+            ) {
+                return;
+            }
+
+            testimonialIndex++;
+
+            if (
+                testimonialIndex >=
+                totalSlides()
+            ) {
+                testimonialIndex = 0;
+            }
+
+            updateTestimonials();
+
+        }, 6500);
+
+
+    document.querySelector(
+        ".testimonial-slider"
+    )?.addEventListener(
+        "mouseenter",
+        () => {
+            clearInterval(
+                testimonialTimer
+            );
+        }
+    );
+
+
+    document.querySelector(
+        ".testimonial-slider"
+    )?.addEventListener(
+        "mouseleave",
+        () => {
+
+            testimonialTimer =
+                setInterval(() => {
+
+                    testimonialIndex++;
+
+                    if (
+                        testimonialIndex >=
+                        totalSlides()
+                    ) {
+                        testimonialIndex = 0;
+                    }
+
+                    updateTestimonials();
+
+                }, 6500);
+
+        }
+    );
+
+
+    /* =====================================================
+    WHATSAPP FORM
+    ===================================================== */
 
     const whatsappForm =
         document.getElementById(
             "whatsappForm"
         );
 
-    if (whatsappForm) {
+    whatsappForm?.addEventListener(
+        "submit",
+        event => {
 
-        whatsappForm.addEventListener(
-            "submit",
-            event => {
+            event.preventDefault();
 
-                event.preventDefault();
+            const name =
+                document.getElementById(
+                    "name"
+                ).value.trim();
 
-                const name =
-                    document
-                        .getElementById("name")
-                        ?.value.trim();
+            const phone =
+                document.getElementById(
+                    "phone"
+                ).value.trim();
 
-                const phone =
-                    document
-                        .getElementById("phone")
-                        ?.value.trim();
+            const subject =
+                document.getElementById(
+                    "subject"
+                ).value.trim();
 
-                const subject =
-                    document
-                        .getElementById("subject")
-                        ?.value.trim();
-
-                const message =
-                    document
-                        .getElementById("message")
-                        ?.value.trim();
+            const message =
+                document.getElementById(
+                    "message"
+                ).value.trim();
 
 
-                const text =
+            const text =
 `Hello Olukayode Hospital.
 
-My name is ${name}.
-
+Name: ${name}
 Phone: ${phone}
-
 Subject: ${subject}
 
 Enquiry:
 ${message}`;
 
 
-                const whatsappURL =
-                    "https://wa.me/2348033602308?text=" +
-                    encodeURIComponent(text);
+            const whatsappURL =
+                "https://wa.me/2348033602308" +
+                "?text=" +
+                encodeURIComponent(text);
 
 
-                window.open(
-                    whatsappURL,
-                    "_blank",
-                    "noopener"
-                );
+            window.open(
+                whatsappURL,
+                "_blank",
+                "noopener"
+            );
 
-            }
-        );
-
-    }
-
-
-    /* =================================================
-       BACK TO TOP
-    ================================================= */
-
-    const backToTop =
-        document.getElementById(
-            "backToTop"
-        );
-
-    if (backToTop) {
-
-        window.addEventListener(
-            "scroll",
-            () => {
-
-                if (window.scrollY > 600) {
-
-                    backToTop.classList.add(
-                        "show"
-                    );
-
-                } else {
-
-                    backToTop.classList.remove(
-                        "show"
-                    );
-
-                }
-
-            },
-            { passive: true }
-        );
-
-
-        backToTop.addEventListener(
-            "click",
-            () => {
-
-                window.scrollTo({
-                    top: 0,
-                    behavior: "smooth"
-                });
-
-            }
-        );
-
-    }
-
-
-    /* =================================================
-       SUBTLE HERO PARALLAX
-    ================================================= */
-
-    const heroVisual =
-        document.querySelector(
-            ".hero-visual"
-        );
-
-    const heroGlowOne =
-        document.querySelector(
-            ".hero-glow-one"
-        );
-
-    const heroGlowTwo =
-        document.querySelector(
-            ".hero-glow-two"
-        );
-
-
-    window.addEventListener(
-        "scroll",
-        () => {
-
-            const scroll =
-                window.scrollY;
-
-            if (
-                scroll < window.innerHeight &&
-                heroVisual
-            ) {
-
-                heroVisual.style.transform =
-                    `translateY(${scroll * .035}px)`;
-
-            }
-
-            if (heroGlowOne) {
-
-                heroGlowOne.style.transform =
-                    `translateY(${scroll * .08}px)`;
-
-            }
-
-            if (heroGlowTwo) {
-
-                heroGlowTwo.style.transform =
-                    `translateY(-${scroll * .05}px)`;
-
-            }
-
-        },
-        { passive: true }
+        }
     );
 
 
-    /* =================================================
-       IMAGE LAZY LOADING
-    ================================================= */
+    /* =====================================================
+    CLOSE MOBILE MENU ON RESIZE
+    ===================================================== */
 
-    document
-        .querySelectorAll("img")
-        .forEach(img => {
+    window.addEventListener(
+        "resize",
+        () => {
 
             if (
-                !img.hasAttribute("loading") &&
-                !img.closest(".hero")
+                window.innerWidth > 800
             ) {
-
-                img.setAttribute(
-                    "loading",
-                    "lazy"
-                );
-
+                closeMenu();
             }
 
-        });
-
-
-    /* =================================================
-       CURRENT YEAR
-    ================================================= */
-
-    const year =
-        document.getElementById("year");
-
-    if (year) {
-
-        year.textContent =
-            new Date().getFullYear();
-
-    }
+        }
+    );
 
 });
